@@ -17,7 +17,7 @@ struct Airport: Codable {
     let name: String?
     let code: String?
     let iataType: String?
-    
+
     enum CodingKeys: String, CodingKey {
         case cityCode = "city_code"
         case countryCode = "country_code"

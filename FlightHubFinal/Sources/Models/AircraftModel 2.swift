@@ -34,7 +34,7 @@ struct Aircraft: Decodable {
     let aircraftICAO: String?
     let updated: Int
     let status: String
-    
+
     private enum CodingKeys: String, CodingKey {
         case hex
         case regNumber = "reg_number"

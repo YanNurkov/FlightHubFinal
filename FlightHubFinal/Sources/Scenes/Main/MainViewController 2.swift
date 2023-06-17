@@ -119,7 +119,7 @@ private extension MainViewController {
 }
 
 extension MainViewController: IMainView {
-    func displayAlertStatusSave(with type: Alert) {
+   func displayAlertStatusSave(with type: Alert) {
         AlertView.showAlertStatus(type: type, view: self)
     }
     
@@ -187,6 +187,13 @@ extension MainViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         presenter?.searchTextDidChange(searchText)
     }
+    
+    //    func moveMapToCoordinates(_ coordinates: CoordinatesCity) {
+    //        // Ваш код для перемещения карты на указанные координаты (используйте API для работы с картой)
+    //        // Например, если у вас есть объект карты mapView:
+    //        let location = CLLocationCoordinate2D(latitude: coordinates.lat, longitude: coordinates.lon)
+    //        self.ui.mapView.setCenter(location, animated: true)
+    //    }
 }
 
 extension MainViewController: CLLocationManagerDelegate {
@@ -268,6 +275,7 @@ extension MainViewController: MKMapViewDelegate {
         }  else if let annotation = view.annotation as? AirportAnnotation {
             presenter?.showAirportDetail(annotation: annotation)
         }
+        
     }
     
     private func getCityNameFromLocation(latitude: CLLocationDegrees, longitude: CLLocationDegrees, completion: @escaping (String?) -> Void) {
@@ -296,6 +304,8 @@ extension MainViewController: MKMapViewDelegate {
     }
     
     func moveMapToCoordinates(_ coordinates: CoordinatesCity) {
+        // Ваш код для перемещения карты на указанные координаты (используйте API для работы с картой)
+        // Например, если у вас есть объект карты mapView:
         let location = CLLocationCoordinate2D(latitude: coordinates.lat, longitude: coordinates.lon)
         self.ui.mapView.setCenter(location, animated: true)
     }

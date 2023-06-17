@@ -47,7 +47,7 @@ struct Flight: Codable {
     let departureTimeTS: Int?
     let departureEstimatedTS: Int?
     let departureActualTS: Int?
-    
+
     enum CodingKeys: String, CodingKey {
         case airlineIATA = "airline_iata"
         case airlineICAO = "airline_icao"

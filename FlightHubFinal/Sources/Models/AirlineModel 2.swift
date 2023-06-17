@@ -22,7 +22,7 @@ struct Airline: Codable {
     let crashesLast5y: Int?
     let website: String?
     let twitter: String?
-    
+
     enum CodingKeys: String, CodingKey {
         case name = "name"
         case icaoCode = "icao_code"
@@ -36,3 +36,4 @@ struct Airline: Codable {
         case twitter = "twitter"
     }
 }
+

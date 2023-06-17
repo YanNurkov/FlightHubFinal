@@ -42,30 +42,31 @@ class CoreDataModel {
     }
     
     func addAirport(airportCodeData: String, airportName: String) {
-        
-        let fetchRequest: NSFetchRequest<AirportCode> = AirportCode.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "code == %@ AND name == %@", airportCodeData, airportName )
-        
-        do {
-            let matchingAirportCodes = try context.fetch(fetchRequest)
-            if let existingAirportCode = matchingAirportCodes.first {
-                print("Airport code and name already exist: \(existingAirportCode.code ?? "") - \(existingAirportCode.name ?? "")")
-                return
-            }
-        } catch {
-            print("Error fetching airport codes: \(error)")
-            return
-        }
-        
-        let airportCodeObject = AirportCode(context: context)
-        airportCodeObject.code = airportCodeData
-        airportCodeObject.name = airportName
-        
-        saveContext()
-    }
+
+       let fetchRequest: NSFetchRequest<AirportCode> = AirportCode.fetchRequest()
+       fetchRequest.predicate = NSPredicate(format: "code == %@ AND name == %@", airportCodeData, airportName )
+
+       do {
+           let matchingAirportCodes = try context.fetch(fetchRequest)
+           if let existingAirportCode = matchingAirportCodes.first {
+               print("Airport code and name already exist: \(existingAirportCode.code ?? "") - \(existingAirportCode.name ?? "")")
+               return
+           }
+       } catch {
+           print("Error fetching airport codes: \(error)")
+           return
+       }
+
+       let airportCodeObject = AirportCode(context: context)
+       airportCodeObject.code = airportCodeData
+       airportCodeObject.name = airportName
+
+       saveContext()
+   }
     
     func deleteAirport(airport: AirportCode) {
         context.delete(airport)
         saveContext()
     }
 }
+

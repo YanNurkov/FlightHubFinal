@@ -78,19 +78,19 @@ final class MainViewPresenter: IMainViewPresenter {
     }
     
     func searchTextDidChange(_ searchText: String) {
-        if searchText.isEmpty {
-            view?.suggestions.removeAll()
-            ui?.tableView.isHidden = true
-        } else {
-            view?.reloadTable()
-            ui?.tableView.isHidden = false
+            if searchText.isEmpty {
+                view?.suggestions.removeAll()
+                ui?.tableView.isHidden = true
+            } else {
+                view?.reloadTable()
+                ui?.tableView.isHidden = false
+            }
+            
+            netWork.fetchSuggestions(with: searchText) { [weak self] autocompleteResponses in
+                self?.view?.suggestions = autocompleteResponses
+                print(autocompleteResponses)
+                self?.view?.reloadTable()
+                self?.ui?.tableView.isHidden = false
+            }
         }
-        
-        netWork.fetchSuggestions(with: searchText) { [weak self] autocompleteResponses in
-            self?.view?.suggestions = autocompleteResponses
-            print(autocompleteResponses)
-            self?.view?.reloadTable()
-            self?.ui?.tableView.isHidden = false
-        }
-    }
 }
