@@ -49,6 +49,7 @@
 		2C04F7912A3D44F60024080D /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F7902A3D44F60024080D /* FavoritesViewController.swift */; };
 		2C04F7932A3D450B0024080D /* FavoritesViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F7922A3D450B0024080D /* FavoritesViewPresenter.swift */; };
 		2C04F7952A3D451F0024080D /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F7942A3D451F0024080D /* FavoritesView.swift */; };
+		2C04F7972A3D455E0024080D /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F7962A3D455E0024080D /* Keychain.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,6 +95,7 @@
 		2C04F7902A3D44F60024080D /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		2C04F7922A3D450B0024080D /* FavoritesViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewPresenter.swift; sourceTree = "<group>"; };
 		2C04F7942A3D451F0024080D /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
+		2C04F7962A3D455E0024080D /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,6 +238,7 @@
 		2C04F7492A3D3E2F0024080D /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				2C04F7962A3D455E0024080D /* Keychain.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -403,6 +406,7 @@
 				2C04F75B2A3D404E0024080D /* FlightCell.swift in Sources */,
 				2C04F77D2A3D423C0024080D /* ModuleFactory.swift in Sources */,
 				2C04F7692A3D41530024080D /* AirlineModel.swift in Sources */,
+				2C04F7972A3D455E0024080D /* Keychain.swift in Sources */,
 				2C04F7812A3D42920024080D /* APIAdress.swift in Sources */,
 				2C04F7612A3D40E00024080D /* AircraftAnnotation.swift in Sources */,
 				2C04F7632A3D41130024080D /* AircraftModel.swift in Sources */,
