@@ -63,81 +63,81 @@ class DataLoader: APIProtocol {
     }
     
     func loadAircraftData(completion: @escaping AircraftDataHandler) {
-            let apiKey = retrieveAPIKeyFromKeychain() ?? ""
-            guard let url = addressProvider.getFlightsURL(apiKey: apiKey) else {
-                print("Invalid URL")
+        let apiKey = retrieveAPIKeyFromKeychain() ?? ""
+        guard let url = addressProvider.getFlightsURL(apiKey: apiKey) else {
+            print("Invalid URL")
+            completion(nil)
+            return
+        }
+        
+        AF.request(url).responseDecodable(of: AircraftDataResponse.self) { response in
+            switch response.result {
+            case .success(let aircraftDataResponse):
+                completion(aircraftDataResponse)
+            case .failure(let error):
+                print("Error fetching aircraft data: \(error)")
                 completion(nil)
-                return
-            }
-            
-            AF.request(url).responseDecodable(of: AircraftDataResponse.self) { response in
-                switch response.result {
-                case .success(let aircraftDataResponse):
-                    completion(aircraftDataResponse)
-                case .failure(let error):
-                    print("Error fetching aircraft data: \(error)")
-                    completion(nil)
-                }
             }
         }
+    }
     
     func fetchCityDetails(cityCode: String, completion: @escaping CityDetailsHandler) {
-            let apiKey = retrieveAPIKeyFromKeychain() ?? ""
-            guard let url = addressProvider.getCitiesURL(cityCode: cityCode, apiKey: apiKey) else {
-                print("Invalid URL")
+        let apiKey = retrieveAPIKeyFromKeychain() ?? ""
+        guard let url = addressProvider.getCitiesURL(cityCode: cityCode, apiKey: apiKey) else {
+            print("Invalid URL")
+            completion(nil)
+            return
+        }
+        
+        AF.request(url).responseDecodable(of: CityResponse.self) { response in
+            switch response.result {
+            case .success(let cityResponse):
+                completion(cityResponse)
+            case .failure(let error):
+                print("Error fetching city details: \(error)")
                 completion(nil)
-                return
-            }
-            
-            AF.request(url).responseDecodable(of: CityResponse.self) { response in
-                switch response.result {
-                case .success(let cityResponse):
-                    completion(cityResponse)
-                case .failure(let error):
-                    print("Error fetching city details: \(error)")
-                    completion(nil)
-                }
             }
         }
-
+    }
+    
     func fetchFlightDetails(flightIATA: String, completion: @escaping FlightDetailsHandler) {
-            let apiKey = retrieveAPIKeyFromKeychain() ?? ""
-            guard let url = addressProvider.getFlightURL(flightIATA: flightIATA, apiKey: apiKey) else {
-                print("Invalid URL")
+        let apiKey = retrieveAPIKeyFromKeychain() ?? ""
+        guard let url = addressProvider.getFlightURL(flightIATA: flightIATA, apiKey: apiKey) else {
+            print("Invalid URL")
+            completion(nil)
+            return
+        }
+        
+        AF.request(url).responseDecodable(of: FlightResponse.self) { response in
+            switch response.result {
+            case .success(let flightResponse):
+                completion(flightResponse)
+            case .failure(let error):
+                print("Error fetching flight details: \(error)")
                 completion(nil)
-                return
-            }
-            
-            AF.request(url).responseDecodable(of: FlightResponse.self) { response in
-                switch response.result {
-                case .success(let flightResponse):
-                    completion(flightResponse)
-                case .failure(let error):
-                    print("Error fetching flight details: \(error)")
-                    completion(nil)
-                }
             }
         }
-
+    }
+    
     func fetchAirportDepartureSchedules(airportCode: String, completion: @escaping (FlightDetails?) -> Void) {
-            let apiKey = retrieveAPIKeyFromKeychain() ?? ""
-            guard let url = addressProvider.getSchedulesURL(airportCode: airportCode, apiKey: apiKey) else {
-                print("Invalid URL")
+        let apiKey = retrieveAPIKeyFromKeychain() ?? ""
+        guard let url = addressProvider.getSchedulesURL(airportCode: airportCode, apiKey: apiKey) else {
+            print("Invalid URL")
+            completion(nil)
+            return
+        }
+        
+        AF.request(url).responseDecodable(of: FlightDetails.self) { response in
+            switch response.result {
+            case .success(let flightResponse):
+                completion(flightResponse)
+            case .failure(let error):
+                print("Error fetching flight details: \(error)")
                 completion(nil)
-                return
-            }
-            
-            AF.request(url).responseDecodable(of: FlightDetails.self) { response in
-                switch response.result {
-                case .success(let flightResponse):
-                    completion(flightResponse)
-                case .failure(let error):
-                    print("Error fetching flight details: \(error)")
-                    completion(nil)
-                }
             }
         }
-
+    }
+    
     func fetchAirportArrivalSchedules(airportCode: String, completion: @escaping (FlightDetails?) -> Void) {
         let apiKey = retrieveAPIKeyFromKeychain() ?? ""
         guard let url = addressProvider.getSchedulesURL(airportCode: airportCode, apiKey: apiKey) else {

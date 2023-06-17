@@ -642,4 +642,3 @@ private extension AirPlaneView {
         }
     }
 }
-

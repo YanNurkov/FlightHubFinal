@@ -45,7 +45,7 @@ class Router: RouterProtocol {
             navigationController.present(airPlane, animated: true)
         }
     }
-
+    
     func showAirportInfo(annotation: AirportAnnotation) {
         if let navigationController = navigationController {
             guard let infoViewController = assemblyBuilder?.makeAirportInfoModule(router: self, annotation: annotation) else { return }
@@ -68,4 +68,3 @@ class Router: RouterProtocol {
         navigationController?.topViewController?.dismiss(animated: true, completion: nil)
     }
 }
-

@@ -9,7 +9,7 @@ import UIKit
 import MapKit
 
 protocol IAirportInfoViewController: AnyObject {
-
+    
 }
 
 class AirportInfoViewController: UIViewController, IAirportInfoViewController {
@@ -96,11 +96,11 @@ private extension AirportInfoViewController {
         self.ui.arrivalTableViewDelegate = self
     }
     
-  private func updateAirportInfoFromAnnotation() {
+    private func updateAirportInfoFromAnnotation() {
         ui.airportNameData = annotation.title
         ui.airportCodeData = annotation.subtitle
     }
-
+    
     private func getShedules() {
         presenter?.fetchFlightDepartureSchedules()
         presenter?.fetchFlightArrivalSchedules()
@@ -112,7 +112,7 @@ extension AirportInfoViewController: UITableViewDataSource, UITableViewDelegate 
         if tableView == ui.departuresTableView {
             print(ui.departures.count)
             return ui.departures.count
-           
+            
         } else if tableView == ui.arrivalsTableView {
             return ui.arrivals.count
         }
@@ -138,4 +138,3 @@ extension AirportInfoViewController: UITableViewDataSource, UITableViewDelegate 
         return 60
     }
 }
-

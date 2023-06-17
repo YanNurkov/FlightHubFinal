@@ -17,11 +17,11 @@ final class FavoritesView: UIView {
     // MARK: - Elements
     
     private lazy var topLabel: UILabel = {
-         let obj = UILabel()
-           obj.text = "Избранные аэропорты"
-           obj.font = UIFont.customFont(type: .montserratAlternatesBold, size: 25)
-           return obj
-       }()
+        let obj = UILabel()
+        obj.text = "Избранные аэропорты"
+        obj.font = UIFont.customFont(type: .montserratAlternatesBold, size: 25)
+        return obj
+    }()
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -36,7 +36,7 @@ final class FavoritesView: UIView {
         super.init(frame: .zero)
         self.configureView()
         self.makeConstraints()
-    
+        
     }
     
     required init?(coder: NSCoder) {
@@ -54,20 +54,20 @@ final class FavoritesView: UIView {
 
 private extension FavoritesView {
     private func makeConstraints() {
-           topLabel.snp.makeConstraints { make in
-               make.top.equalTo(self.snp.top).offset(16)
-               make.leading.equalTo(self.snp.leading).offset(16)
-               make.trailing.equalTo(self.snp.trailing).offset(-16)
-               make.height.equalTo(25)
-           }
-           
-           tableView.snp.makeConstraints { make in
-               make.top.equalTo(topLabel.snp.bottom).offset(16)
-               make.leading.equalTo(self.snp.leading).offset(16)
-               make.trailing.equalTo(self.snp.trailing).offset(-16)
-               make.bottom.equalTo(self.snp.bottom).offset(-16)
-           }
-       }
+        topLabel.snp.makeConstraints { make in
+            make.top.equalTo(self.snp.top).offset(16)
+            make.leading.equalTo(self.snp.leading).offset(16)
+            make.trailing.equalTo(self.snp.trailing).offset(-16)
+            make.height.equalTo(25)
+        }
+        
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(topLabel.snp.bottom).offset(16)
+            make.leading.equalTo(self.snp.leading).offset(16)
+            make.trailing.equalTo(self.snp.trailing).offset(-16)
+            make.bottom.equalTo(self.snp.bottom).offset(-16)
+        }
+    }
 }
 
 extension FavoritesView: IFavoritesView {

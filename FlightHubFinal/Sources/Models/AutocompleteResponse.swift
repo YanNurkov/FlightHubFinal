@@ -53,4 +53,3 @@ struct CityCases: Codable {
 struct CountryCases: Codable {
     let vi, tv, su, ro, pr, da: String
 }
-

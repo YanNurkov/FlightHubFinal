@@ -8,11 +8,11 @@
 import UIKit
 
 protocol IAirPlaneViewController: AnyObject {
-
+    
 }
 
 class AirPlaneViewController: UIViewController, IAirPlaneViewController {
-  
+    
     var presenter: IAirPlanePresenter?
     let ui = AirPlaneView()
     var annotation = AircraftAnnotation()
@@ -42,7 +42,7 @@ class AirPlaneViewController: UIViewController, IAirPlaneViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-   private func congigAirplaneView() {
+    private func congigAirplaneView() {
         presenter?.loadData(annotation: annotation.fullFlightNumber, completion: { flightData in
             self.ui.planeModelInfo = self.annotation.aircraftICAO
             self.ui.planeRegNumberInfo = self.annotation.regNumber
@@ -68,55 +68,55 @@ class AirPlaneViewController: UIViewController, IAirPlaneViewController {
             }
             self.ui.arrivalAirportCode = flightData?.response.arrivalIATA ?? ""
             self.ui.departureAirportCode = flightData?.response.departureIATA ?? ""
-       
-          
-        
-        
+            
+            
+            
+            
             if let arrivalCityCode = self.findCityCodeByAirportCode(flightData?.response.arrivalIATA ?? "") {
-            self.presenter?.fetchCityDetails(city: arrivalCityCode) { cityResponse in
-                        if let arrivalCity = cityResponse?.response.first {
-                            print("Arrival City Code: \(arrivalCity.cityCode)")
-                            print("Arrival City Name: \(arrivalCity.cityName)")
-                            print("Arrival Country Code: \(arrivalCity.countryCode)")
-                            if let departureCityCode = self.findCityCodeByAirportCode(flightData?.response.departureIATA ?? "") {
-                                self.presenter?.fetchCityDetails(city: departureCityCode) { cityResponse in
-                                    if let departureCity = cityResponse?.response.first {
-                                        print("Departure City Code: \(departureCity.cityCode)")
-                                        print("Departure City Name: \(departureCity.cityName)")
-                                        print("Departure Country Code: \(departureCity.countryCode)")
-
-                                        let itineraryText = "\(departureCity.cityName) - \(arrivalCity.cityName)"
-                                        self.ui.itineraryLabel.text = itineraryText
-                                        self.ui.itineraryLabel.textAlignment = .center
-                                        self.ui.flagDepartureImage.image = UIImage(named: departureCity.countryCode.lowercased())
-                                        self.ui.flagArrivalImage.image = UIImage(named: arrivalCity.countryCode.lowercased())
-                                        self.ui.departureCityLabel.text = departureCity.cityName
-                                        self.ui.arrivalCityLabel.text = arrivalCity.cityName
-                                    } else {
-                                        print("Unable to fetch departure city details")
-                                    }
+                self.presenter?.fetchCityDetails(city: arrivalCityCode) { cityResponse in
+                    if let arrivalCity = cityResponse?.response.first {
+                        print("Arrival City Code: \(arrivalCity.cityCode)")
+                        print("Arrival City Name: \(arrivalCity.cityName)")
+                        print("Arrival Country Code: \(arrivalCity.countryCode)")
+                        if let departureCityCode = self.findCityCodeByAirportCode(flightData?.response.departureIATA ?? "") {
+                            self.presenter?.fetchCityDetails(city: departureCityCode) { cityResponse in
+                                if let departureCity = cityResponse?.response.first {
+                                    print("Departure City Code: \(departureCity.cityCode)")
+                                    print("Departure City Name: \(departureCity.cityName)")
+                                    print("Departure Country Code: \(departureCity.countryCode)")
+                                    
+                                    let itineraryText = "\(departureCity.cityName) - \(arrivalCity.cityName)"
+                                    self.ui.itineraryLabel.text = itineraryText
+                                    self.ui.itineraryLabel.textAlignment = .center
+                                    self.ui.flagDepartureImage.image = UIImage(named: departureCity.countryCode.lowercased())
+                                    self.ui.flagArrivalImage.image = UIImage(named: arrivalCity.countryCode.lowercased())
+                                    self.ui.departureCityLabel.text = departureCity.cityName
+                                    self.ui.arrivalCityLabel.text = arrivalCity.cityName
+                                } else {
+                                    print("Unable to fetch departure city details")
                                 }
-                            } else {
-                                print("Departure airport code not found")
                             }
                         } else {
-                            print("Unable to fetch arrival city details")
+                            print("Departure airport code not found")
                         }
+                    } else {
+                        print("Unable to fetch arrival city details")
                     }
-                } else {
-                    print("Arrival airport code not found")
                 }
+            } else {
+                print("Arrival airport code not found")
+            }
         })
     }
     
-   private func flightDirection(from bearing: Int) -> String {
+    private func flightDirection(from bearing: Int) -> String {
         let directions = ["Север", "Северо-Восток", "Северо-Восток", "Северо-Восток", "Восток", "Юго-Восток", "Юго-Восток", "Юго-Восток", "Юг", "Юго-Запад", "Юго-Запад", "Юго-Запад", "Запад", "Северо-Запад", "Северо-Запад", "Северо-Запад"]
         
         let index = Int((Double(bearing) / 22.5) + 0.5) % 16
         return directions[index]
     }
     
-   private func findCityCodeByAirportCode(_ airportCode: String) -> String? {
+    private func findCityCodeByAirportCode(_ airportCode: String) -> String? {
         if let airport = allAirports.first(where: { $0.code == airportCode }) {
             return airport.cityCode
         } else {
@@ -128,19 +128,19 @@ class AirPlaneViewController: UIViewController, IAirPlaneViewController {
         guard let departureTime = departureTime, let arrivalTime = arrivalTime else {
             return ""
         }
-
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
         dateFormatter.timeZone = TimeZone(identifier: "UTC")
-
+        
         guard let departureDate = dateFormatter.date(from: departureTime),
               let arrivalDate = dateFormatter.date(from: arrivalTime) else {
             return ""
         }
-
+        
         let calendar = Calendar.current
         let components = calendar.dateComponents([.hour, .minute], from: departureDate, to: arrivalDate)
-
+        
         if let hours = components.hour, let minutes = components.minute {
             return " \(hours)ч \(minutes)м "
         } else {
@@ -148,4 +148,3 @@ class AirPlaneViewController: UIViewController, IAirPlaneViewController {
         }
     }
 }
-

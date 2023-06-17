@@ -47,7 +47,7 @@ final class AirportInfoView: UIView {
         label.numberOfLines = 2
         return label
     }()
-
+    
     
     private let departureLabel: UILabel = {
         let label = UILabel()
