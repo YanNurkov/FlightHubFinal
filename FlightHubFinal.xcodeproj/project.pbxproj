@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		2C04F7152A3CFABF0024080D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F7142A3CFABF0024080D /* AppDelegate.swift */; };
 		2C04F7172A3CFABF0024080D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F7162A3CFABF0024080D /* SceneDelegate.swift */; };
-		2C04F7192A3CFABF0024080D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F7182A3CFABF0024080D /* ViewController.swift */; };
 		2C04F71F2A3CFABF0024080D /* FlightHubFinal.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F71D2A3CFABF0024080D /* FlightHubFinal.xcdatamodeld */; };
 		2C04F7212A3CFAC00024080D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C04F7202A3CFAC00024080D /* Assets.xcassets */; };
 		2C04F7242A3CFAC00024080D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C04F7222A3CFAC00024080D /* LaunchScreen.storyboard */; };
@@ -56,7 +55,6 @@
 		2C04F7112A3CFABF0024080D /* FlightHubFinal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlightHubFinal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C04F7142A3CFABF0024080D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C04F7162A3CFABF0024080D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		2C04F7182A3CFABF0024080D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2C04F71E2A3CFABF0024080D /* FlightHubFinal.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FlightHubFinal.xcdatamodel; sourceTree = "<group>"; };
 		2C04F7202A3CFAC00024080D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2C04F7232A3CFAC00024080D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -132,7 +130,6 @@
 			children = (
 				2C04F7402A3D3DA60024080D /* Sources */,
 				2C04F7412A3D3DB50024080D /* Resources */,
-				2C04F7182A3CFABF0024080D /* ViewController.swift */,
 				2C04F7252A3CFAC00024080D /* Info.plist */,
 				2C04F71D2A3CFABF0024080D /* FlightHubFinal.xcdatamodeld */,
 			);
@@ -402,7 +399,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C04F77B2A3D422A0024080D /* Router.swift in Sources */,
-				2C04F7192A3CFABF0024080D /* ViewController.swift in Sources */,
 				2C04F75B2A3D404E0024080D /* FlightCell.swift in Sources */,
 				2C04F77D2A3D423C0024080D /* ModuleFactory.swift in Sources */,
 				2C04F7692A3D41530024080D /* AirlineModel.swift in Sources */,
