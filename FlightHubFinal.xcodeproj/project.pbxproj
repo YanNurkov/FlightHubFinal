@@ -18,6 +18,7 @@
 		2C04F7532A3D3F6E0024080D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F7522A3D3F6E0024080D /* MainViewController.swift */; };
 		2C04F7552A3D3F9C0024080D /* MainViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F7542A3D3F9C0024080D /* MainViewPresenter.swift */; };
 		2C04F7572A3D3FB40024080D /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F7562A3D3FB40024080D /* MainView.swift */; };
+		2C04F7592A3D40010024080D /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F7582A3D40010024080D /* AlertView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		2C04F7522A3D3F6E0024080D /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		2C04F7542A3D3F9C0024080D /* MainViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewPresenter.swift; sourceTree = "<group>"; };
 		2C04F7562A3D3FB40024080D /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		2C04F7582A3D40010024080D /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 		2C04F7422A3D3DF30024080D /* Alert */ = {
 			isa = PBXGroup;
 			children = (
+				2C04F7582A3D40010024080D /* AlertView.swift */,
 			);
 			path = Alert;
 			sourceTree = "<group>";
@@ -307,6 +310,7 @@
 				2C04F7152A3CFABF0024080D /* AppDelegate.swift in Sources */,
 				2C04F7552A3D3F9C0024080D /* MainViewPresenter.swift in Sources */,
 				2C04F71F2A3CFABF0024080D /* FlightHubFinal.xcdatamodeld in Sources */,
+				2C04F7592A3D40010024080D /* AlertView.swift in Sources */,
 				2C04F7172A3CFABF0024080D /* SceneDelegate.swift in Sources */,
 				2C04F7532A3D3F6E0024080D /* MainViewController.swift in Sources */,
 			);
