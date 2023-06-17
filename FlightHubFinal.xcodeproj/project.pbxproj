@@ -22,6 +22,15 @@
 		2C04F75B2A3D404E0024080D /* FlightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F75A2A3D404E0024080D /* FlightCell.swift */; };
 		2C04F75D2A3D406E0024080D /* AirplaneModificator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F75C2A3D406E0024080D /* AirplaneModificator.swift */; };
 		2C04F75F2A3D40850024080D /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F75E2A3D40850024080D /* Fonts.swift */; };
+		2C04F7612A3D40E00024080D /* AircraftAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F7602A3D40E00024080D /* AircraftAnnotation.swift */; };
+		2C04F7632A3D41130024080D /* AircraftModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F7622A3D41130024080D /* AircraftModel.swift */; };
+		2C04F7652A3D41290024080D /* AirportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F7642A3D41290024080D /* AirportModel.swift */; };
+		2C04F7672A3D413D0024080D /* CityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F7662A3D413D0024080D /* CityModel.swift */; };
+		2C04F7692A3D41530024080D /* AirlineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F7682A3D41530024080D /* AirlineModel.swift */; };
+		2C04F76B2A3D416B0024080D /* FlightDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F76A2A3D416B0024080D /* FlightDataModel.swift */; };
+		2C04F76D2A3D41840024080D /* FlightDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F76C2A3D41840024080D /* FlightDetailsModel.swift */; };
+		2C04F76F2A3D41960024080D /* AutocompleteResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F76E2A3D41960024080D /* AutocompleteResponse.swift */; };
+		2C04F7712A3D41A90024080D /* CoreDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F7702A3D41A90024080D /* CoreDataModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +49,15 @@
 		2C04F75A2A3D404E0024080D /* FlightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightCell.swift; sourceTree = "<group>"; };
 		2C04F75C2A3D406E0024080D /* AirplaneModificator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirplaneModificator.swift; sourceTree = "<group>"; };
 		2C04F75E2A3D40850024080D /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
+		2C04F7602A3D40E00024080D /* AircraftAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AircraftAnnotation.swift; sourceTree = "<group>"; };
+		2C04F7622A3D41130024080D /* AircraftModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AircraftModel.swift; sourceTree = "<group>"; };
+		2C04F7642A3D41290024080D /* AirportModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportModel.swift; sourceTree = "<group>"; };
+		2C04F7662A3D413D0024080D /* CityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityModel.swift; sourceTree = "<group>"; };
+		2C04F7682A3D41530024080D /* AirlineModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirlineModel.swift; sourceTree = "<group>"; };
+		2C04F76A2A3D416B0024080D /* FlightDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDataModel.swift; sourceTree = "<group>"; };
+		2C04F76C2A3D41840024080D /* FlightDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDetailsModel.swift; sourceTree = "<group>"; };
+		2C04F76E2A3D41960024080D /* AutocompleteResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutocompleteResponse.swift; sourceTree = "<group>"; };
+		2C04F7702A3D41A90024080D /* CoreDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +147,15 @@
 		2C04F7442A3D3E080024080D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2C04F7602A3D40E00024080D /* AircraftAnnotation.swift */,
+				2C04F7622A3D41130024080D /* AircraftModel.swift */,
+				2C04F7642A3D41290024080D /* AirportModel.swift */,
+				2C04F7662A3D413D0024080D /* CityModel.swift */,
+				2C04F7682A3D41530024080D /* AirlineModel.swift */,
+				2C04F76A2A3D416B0024080D /* FlightDataModel.swift */,
+				2C04F76C2A3D41840024080D /* FlightDetailsModel.swift */,
+				2C04F76E2A3D41960024080D /* AutocompleteResponse.swift */,
+				2C04F7702A3D41A90024080D /* CoreDataModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -316,14 +343,23 @@
 			files = (
 				2C04F7192A3CFABF0024080D /* ViewController.swift in Sources */,
 				2C04F75B2A3D404E0024080D /* FlightCell.swift in Sources */,
+				2C04F7692A3D41530024080D /* AirlineModel.swift in Sources */,
+				2C04F7612A3D40E00024080D /* AircraftAnnotation.swift in Sources */,
+				2C04F7632A3D41130024080D /* AircraftModel.swift in Sources */,
 				2C04F7572A3D3FB40024080D /* MainView.swift in Sources */,
+				2C04F7672A3D413D0024080D /* CityModel.swift in Sources */,
+				2C04F7652A3D41290024080D /* AirportModel.swift in Sources */,
 				2C04F75D2A3D406E0024080D /* AirplaneModificator.swift in Sources */,
+				2C04F76B2A3D416B0024080D /* FlightDataModel.swift in Sources */,
+				2C04F76F2A3D41960024080D /* AutocompleteResponse.swift in Sources */,
 				2C04F7152A3CFABF0024080D /* AppDelegate.swift in Sources */,
 				2C04F7552A3D3F9C0024080D /* MainViewPresenter.swift in Sources */,
 				2C04F71F2A3CFABF0024080D /* FlightHubFinal.xcdatamodeld in Sources */,
 				2C04F7592A3D40010024080D /* AlertView.swift in Sources */,
+				2C04F76D2A3D41840024080D /* FlightDetailsModel.swift in Sources */,
 				2C04F75F2A3D40850024080D /* Fonts.swift in Sources */,
 				2C04F7172A3CFABF0024080D /* SceneDelegate.swift in Sources */,
+				2C04F7712A3D41A90024080D /* CoreDataModel.swift in Sources */,
 				2C04F7532A3D3F6E0024080D /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
