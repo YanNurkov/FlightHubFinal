@@ -10,10 +10,11 @@
 		2C04F7152A3CFABF0024080D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F7142A3CFABF0024080D /* AppDelegate.swift */; };
 		2C04F7172A3CFABF0024080D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F7162A3CFABF0024080D /* SceneDelegate.swift */; };
 		2C04F7192A3CFABF0024080D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F7182A3CFABF0024080D /* ViewController.swift */; };
-		2C04F71C2A3CFABF0024080D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C04F71A2A3CFABF0024080D /* Main.storyboard */; };
 		2C04F71F2A3CFABF0024080D /* FlightHubFinal.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F71D2A3CFABF0024080D /* FlightHubFinal.xcdatamodeld */; };
 		2C04F7212A3CFAC00024080D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C04F7202A3CFAC00024080D /* Assets.xcassets */; };
 		2C04F7242A3CFAC00024080D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C04F7222A3CFAC00024080D /* LaunchScreen.storyboard */; };
+		2C04F73C2A3D3D680024080D /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 2C04F73B2A3D3D680024080D /* Alamofire */; };
+		2C04F73F2A3D3D760024080D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2C04F73E2A3D3D760024080D /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,7 +22,6 @@
 		2C04F7142A3CFABF0024080D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C04F7162A3CFABF0024080D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		2C04F7182A3CFABF0024080D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		2C04F71B2A3CFABF0024080D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2C04F71E2A3CFABF0024080D /* FlightHubFinal.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FlightHubFinal.xcdatamodel; sourceTree = "<group>"; };
 		2C04F7202A3CFAC00024080D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2C04F7232A3CFAC00024080D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -33,6 +33,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C04F73C2A3D3D680024080D /* Alamofire in Frameworks */,
+				2C04F73F2A3D3D760024080D /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,7 +63,6 @@
 				2C04F7142A3CFABF0024080D /* AppDelegate.swift */,
 				2C04F7162A3CFABF0024080D /* SceneDelegate.swift */,
 				2C04F7182A3CFABF0024080D /* ViewController.swift */,
-				2C04F71A2A3CFABF0024080D /* Main.storyboard */,
 				2C04F7202A3CFAC00024080D /* Assets.xcassets */,
 				2C04F7222A3CFAC00024080D /* LaunchScreen.storyboard */,
 				2C04F7252A3CFAC00024080D /* Info.plist */,
@@ -86,6 +87,10 @@
 			dependencies = (
 			);
 			name = FlightHubFinal;
+			packageProductDependencies = (
+				2C04F73B2A3D3D680024080D /* Alamofire */,
+				2C04F73E2A3D3D760024080D /* SnapKit */,
+			);
 			productName = FlightHubFinal;
 			productReference = 2C04F7112A3CFABF0024080D /* FlightHubFinal.app */;
 			productType = "com.apple.product-type.application";
@@ -114,6 +119,10 @@
 				Base,
 			);
 			mainGroup = 2C04F7082A3CFABF0024080D;
+			packageReferences = (
+				2C04F73A2A3D3D680024080D /* XCRemoteSwiftPackageReference "Alamofire" */,
+				2C04F73D2A3D3D760024080D /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 2C04F7122A3CFABF0024080D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -130,7 +139,6 @@
 			files = (
 				2C04F7242A3CFAC00024080D /* LaunchScreen.storyboard in Resources */,
 				2C04F7212A3CFAC00024080D /* Assets.xcassets in Resources */,
-				2C04F71C2A3CFABF0024080D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,14 +159,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		2C04F71A2A3CFABF0024080D /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2C04F71B2A3CFABF0024080D /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		2C04F7222A3CFAC00024080D /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -294,11 +294,14 @@
 				DEVELOPMENT_TEAM = LB62AQUMSB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FlightHubFinal/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = FlightHub;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -306,9 +309,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NurkovYan.FlightHubFinal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -322,11 +328,14 @@
 				DEVELOPMENT_TEAM = LB62AQUMSB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FlightHubFinal/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = FlightHub;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -334,9 +343,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NurkovYan.FlightHubFinal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -362,6 +374,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2C04F73A2A3D3D680024080D /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		2C04F73D2A3D3D760024080D /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2C04F73B2A3D3D680024080D /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2C04F73A2A3D3D680024080D /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		2C04F73E2A3D3D760024080D /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2C04F73D2A3D3D760024080D /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		2C04F71D2A3CFABF0024080D /* FlightHubFinal.xcdatamodeld */ = {
