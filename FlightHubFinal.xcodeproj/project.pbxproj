@@ -19,6 +19,9 @@
 		2C04F7552A3D3F9C0024080D /* MainViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F7542A3D3F9C0024080D /* MainViewPresenter.swift */; };
 		2C04F7572A3D3FB40024080D /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F7562A3D3FB40024080D /* MainView.swift */; };
 		2C04F7592A3D40010024080D /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F7582A3D40010024080D /* AlertView.swift */; };
+		2C04F75B2A3D404E0024080D /* FlightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F75A2A3D404E0024080D /* FlightCell.swift */; };
+		2C04F75D2A3D406E0024080D /* AirplaneModificator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F75C2A3D406E0024080D /* AirplaneModificator.swift */; };
+		2C04F75F2A3D40850024080D /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F75E2A3D40850024080D /* Fonts.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +37,9 @@
 		2C04F7542A3D3F9C0024080D /* MainViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewPresenter.swift; sourceTree = "<group>"; };
 		2C04F7562A3D3FB40024080D /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		2C04F7582A3D40010024080D /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
+		2C04F75A2A3D404E0024080D /* FlightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightCell.swift; sourceTree = "<group>"; };
+		2C04F75C2A3D406E0024080D /* AirplaneModificator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirplaneModificator.swift; sourceTree = "<group>"; };
+		2C04F75E2A3D40850024080D /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +177,8 @@
 		2C04F74A2A3D3E410024080D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				2C04F75C2A3D406E0024080D /* AirplaneModificator.swift */,
+				2C04F75E2A3D40850024080D /* Fonts.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -178,6 +186,7 @@
 		2C04F74B2A3D3E4C0024080D /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				2C04F75A2A3D404E0024080D /* FlightCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -306,11 +315,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C04F7192A3CFABF0024080D /* ViewController.swift in Sources */,
+				2C04F75B2A3D404E0024080D /* FlightCell.swift in Sources */,
 				2C04F7572A3D3FB40024080D /* MainView.swift in Sources */,
+				2C04F75D2A3D406E0024080D /* AirplaneModificator.swift in Sources */,
 				2C04F7152A3CFABF0024080D /* AppDelegate.swift in Sources */,
 				2C04F7552A3D3F9C0024080D /* MainViewPresenter.swift in Sources */,
 				2C04F71F2A3CFABF0024080D /* FlightHubFinal.xcdatamodeld in Sources */,
 				2C04F7592A3D40010024080D /* AlertView.swift in Sources */,
+				2C04F75F2A3D40850024080D /* Fonts.swift in Sources */,
 				2C04F7172A3CFABF0024080D /* SceneDelegate.swift in Sources */,
 				2C04F7532A3D3F6E0024080D /* MainViewController.swift in Sources */,
 			);
