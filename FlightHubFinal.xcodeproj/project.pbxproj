@@ -43,6 +43,9 @@
 		2C04F7852A3D43AF0024080D /* AirPlaneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F7842A3D43AF0024080D /* AirPlaneViewController.swift */; };
 		2C04F7872A3D43C40024080D /* AirPlanePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F7862A3D43C40024080D /* AirPlanePresenter.swift */; };
 		2C04F7892A3D43DA0024080D /* AirPlaneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F7882A3D43DA0024080D /* AirPlaneView.swift */; };
+		2C04F78B2A3D44830024080D /* AirportInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F78A2A3D44830024080D /* AirportInfoViewController.swift */; };
+		2C04F78D2A3D44970024080D /* AirportInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F78C2A3D44970024080D /* AirportInfoView.swift */; };
+		2C04F78F2A3D44AE0024080D /* AirportInfoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C04F78E2A3D44AE0024080D /* AirportInfoPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +85,9 @@
 		2C04F7842A3D43AF0024080D /* AirPlaneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPlaneViewController.swift; sourceTree = "<group>"; };
 		2C04F7862A3D43C40024080D /* AirPlanePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPlanePresenter.swift; sourceTree = "<group>"; };
 		2C04F7882A3D43DA0024080D /* AirPlaneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPlaneView.swift; sourceTree = "<group>"; };
+		2C04F78A2A3D44830024080D /* AirportInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportInfoViewController.swift; sourceTree = "<group>"; };
+		2C04F78C2A3D44970024080D /* AirportInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportInfoView.swift; sourceTree = "<group>"; };
+		2C04F78E2A3D44AE0024080D /* AirportInfoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportInfoPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -275,6 +281,9 @@
 		2C04F74F2A3D3E850024080D /* AirportInfo */ = {
 			isa = PBXGroup;
 			children = (
+				2C04F78A2A3D44830024080D /* AirportInfoViewController.swift */,
+				2C04F78C2A3D44970024080D /* AirportInfoView.swift */,
+				2C04F78E2A3D44AE0024080D /* AirportInfoPresenter.swift */,
 			);
 			path = AirportInfo;
 			sourceTree = "<group>";
@@ -392,7 +401,9 @@
 				2C04F7672A3D413D0024080D /* CityModel.swift in Sources */,
 				2C04F7652A3D41290024080D /* AirportModel.swift in Sources */,
 				2C04F75D2A3D406E0024080D /* AirplaneModificator.swift in Sources */,
+				2C04F78B2A3D44830024080D /* AirportInfoViewController.swift in Sources */,
 				2C04F76B2A3D416B0024080D /* FlightDataModel.swift in Sources */,
+				2C04F78D2A3D44970024080D /* AirportInfoView.swift in Sources */,
 				2C04F76F2A3D41960024080D /* AutocompleteResponse.swift in Sources */,
 				2C04F7152A3CFABF0024080D /* AppDelegate.swift in Sources */,
 				2C04F7552A3D3F9C0024080D /* MainViewPresenter.swift in Sources */,
@@ -404,6 +415,7 @@
 				2C04F75F2A3D40850024080D /* Fonts.swift in Sources */,
 				2C04F77F2A3D426F0024080D /* DataLoader.swift in Sources */,
 				2C04F7172A3CFABF0024080D /* SceneDelegate.swift in Sources */,
+				2C04F78F2A3D44AE0024080D /* AirportInfoPresenter.swift in Sources */,
 				2C04F7712A3D41A90024080D /* CoreDataModel.swift in Sources */,
 				2C04F7832A3D42AC0024080D /* NetworkService.swift in Sources */,
 				2C04F7872A3D43C40024080D /* AirPlanePresenter.swift in Sources */,
