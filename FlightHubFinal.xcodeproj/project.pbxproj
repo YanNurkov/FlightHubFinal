@@ -60,15 +60,159 @@
 		2C04F7132A3CFABF0024080D /* FlightHubFinal */ = {
 			isa = PBXGroup;
 			children = (
+				2C04F7402A3D3DA60024080D /* Sources */,
+				2C04F7412A3D3DB50024080D /* Resources */,
 				2C04F7142A3CFABF0024080D /* AppDelegate.swift */,
-				2C04F7162A3CFABF0024080D /* SceneDelegate.swift */,
 				2C04F7182A3CFABF0024080D /* ViewController.swift */,
-				2C04F7202A3CFAC00024080D /* Assets.xcassets */,
-				2C04F7222A3CFAC00024080D /* LaunchScreen.storyboard */,
+				2C04F7162A3CFABF0024080D /* SceneDelegate.swift */,
 				2C04F7252A3CFAC00024080D /* Info.plist */,
 				2C04F71D2A3CFABF0024080D /* FlightHubFinal.xcdatamodeld */,
 			);
 			path = FlightHubFinal;
+			sourceTree = "<group>";
+		};
+		2C04F7402A3D3DA60024080D /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				2C04F7492A3D3E2F0024080D /* Services */,
+				2C04F7482A3D3E280024080D /* App */,
+				2C04F7472A3D3E200024080D /* Scenes */,
+				2C04F7462A3D3E190024080D /* Network */,
+				2C04F7452A3D3E110024080D /* Helpers */,
+				2C04F7442A3D3E080024080D /* Models */,
+				2C04F7432A3D3E010024080D /* Common */,
+				2C04F7422A3D3DF30024080D /* Alert */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		2C04F7412A3D3DB50024080D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2C04F7202A3CFAC00024080D /* Assets.xcassets */,
+				2C04F7222A3CFAC00024080D /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		2C04F7422A3D3DF30024080D /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
+		2C04F7432A3D3E010024080D /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				2C04F74B2A3D3E4C0024080D /* Cell */,
+				2C04F74A2A3D3E410024080D /* Extensions */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		2C04F7442A3D3E080024080D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		2C04F7452A3D3E110024080D /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				2C04F74D2A3D3E670024080D /* Fonts */,
+				2C04F74C2A3D3E5F0024080D /* Navigation */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		2C04F7462A3D3E190024080D /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		2C04F7472A3D3E200024080D /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				2C04F7512A3D3EA10024080D /* Main */,
+				2C04F7502A3D3E8F0024080D /* AirPlaneInfo */,
+				2C04F74F2A3D3E850024080D /* AirportInfo */,
+				2C04F74E2A3D3E780024080D /* FavoritesView */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		2C04F7482A3D3E280024080D /* App */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		2C04F7492A3D3E2F0024080D /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		2C04F74A2A3D3E410024080D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		2C04F74B2A3D3E4C0024080D /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		2C04F74C2A3D3E5F0024080D /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		2C04F74D2A3D3E670024080D /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		2C04F74E2A3D3E780024080D /* FavoritesView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = FavoritesView;
+			sourceTree = "<group>";
+		};
+		2C04F74F2A3D3E850024080D /* AirportInfo */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AirportInfo;
+			sourceTree = "<group>";
+		};
+		2C04F7502A3D3E8F0024080D /* AirPlaneInfo */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AirPlaneInfo;
+			sourceTree = "<group>";
+		};
+		2C04F7512A3D3EA10024080D /* Main */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
