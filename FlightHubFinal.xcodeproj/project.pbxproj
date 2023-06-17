@@ -112,9 +112,7 @@
 			children = (
 				2C04F7402A3D3DA60024080D /* Sources */,
 				2C04F7412A3D3DB50024080D /* Resources */,
-				2C04F7142A3CFABF0024080D /* AppDelegate.swift */,
 				2C04F7182A3CFABF0024080D /* ViewController.swift */,
-				2C04F7162A3CFABF0024080D /* SceneDelegate.swift */,
 				2C04F7252A3CFAC00024080D /* Info.plist */,
 				2C04F71D2A3CFABF0024080D /* FlightHubFinal.xcdatamodeld */,
 			);
@@ -211,6 +209,8 @@
 		2C04F7482A3D3E280024080D /* App */ = {
 			isa = PBXGroup;
 			children = (
+				2C04F7142A3CFABF0024080D /* AppDelegate.swift */,
+				2C04F7162A3CFABF0024080D /* SceneDelegate.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
