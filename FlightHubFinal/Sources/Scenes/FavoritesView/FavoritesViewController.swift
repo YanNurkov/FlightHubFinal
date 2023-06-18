@@ -19,9 +19,9 @@ class FavoritesViewController: UIViewController, IFavoritesViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter?.viewDidLoad(ui: self.ui)
-        ui.tableDataSource = self
-        ui.tableViewDelegate = self
+        self.presenter?.viewDidLoad(ui: self.ui)
+        self.ui.tableDataSource = self
+        self.ui.tableViewDelegate = self
     }
     
     override func loadView() {
@@ -29,13 +29,13 @@ class FavoritesViewController: UIViewController, IFavoritesViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        presenter?.fetchFavoriteAirport()
+        self.presenter?.fetchFavoriteAirport()
     }
     
     // MARK: - Functions
     
     func reloadTable() {
-        ui.tableView.reloadData()
+        self.ui.tableView.reloadData()
     }
 }
 
@@ -43,23 +43,23 @@ class FavoritesViewController: UIViewController, IFavoritesViewController {
 
 extension FavoritesViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter?.countOfAirport() ?? 0
+        self.presenter?.countOfAirport() ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = ("\(presenter?.fetchCode(for: indexPath) ?? ""), \(presenter?.fetchName(for: indexPath) ?? "")")
+        cell.textLabel?.text = ("\(self.presenter?.fetchCode(for: indexPath) ?? ""), \(self.presenter?.fetchName(for: indexPath) ?? "")")
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        presenter?.showAirportInfo(index: indexPath)
+        self.presenter?.showAirportInfo(index: indexPath)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            presenter?.deleteAirport(index: indexPath)
+            self.presenter?.deleteAirport(index: indexPath)
         }
     }
 }

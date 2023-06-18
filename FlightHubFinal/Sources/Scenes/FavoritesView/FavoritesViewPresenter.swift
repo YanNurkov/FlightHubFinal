@@ -37,31 +37,31 @@ final class FavoritesViewPresenter: IFavoritesViewPresenter {
     }
     
     func fetchAllAirport() {
-        favoriteAirport = model.getAirport()
-        view?.reloadTable()
+        self.favoriteAirport = self.model.getAirport()
+        self.view?.reloadTable()
     }
     
     func fetchFavoriteAirport() {
-        favoriteAirport = model.getAirport()
-        view?.reloadTable()
+        self.favoriteAirport = self.model.getAirport()
+        self.view?.reloadTable()
     }
     
     func fetchName(for index: IndexPath) -> String {
-        return favoriteAirport?[index.row].name ?? ""
+        return self.favoriteAirport?[index.row].name ?? ""
     }
     
     func fetchCode(for index: IndexPath) -> String {
-        return favoriteAirport?[index.row].code ?? ""
+        return self.favoriteAirport?[index.row].code ?? ""
     }
     
     func countOfAirport() -> Int {
-        return favoriteAirport?.count ?? 0
+        return self.favoriteAirport?.count ?? 0
     }
     
     func deleteAirport(index: IndexPath) {
-        guard let airport = favoriteAirport?[index.row] else { return }
-        model.deleteAirport(airport: airport)
-        fetchAllAirport()
+        guard let airport = self.favoriteAirport?[index.row] else { return }
+        self.model.deleteAirport(airport: airport)
+        self.fetchAllAirport()
     }
     
     func showAirportInfo(index: IndexPath) {
@@ -69,7 +69,7 @@ final class FavoritesViewPresenter: IFavoritesViewPresenter {
         let annotation = AirportAnnotation()
         annotation.title = airport.name
         annotation.subtitle = airport.code
-        router.dismiss()
-        router.showAirportInfo(annotation: annotation)
+        self.router.dismiss()
+        self.router.showAirportInfo(annotation: annotation)
     }
 }

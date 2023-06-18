@@ -26,20 +26,20 @@ final class AirportInfoView: UIView {
     var arrivals: [Flight] = []
     var airportCodeData : String? {
         didSet {
-            airportCode = airportCodeData ?? ""
-            departureLabel.text = "\u{1F6EB} Вылеты из \(airportCode)"
-            arrivalLabel.text = "\u{1F6EC} Прилеты из \(airportCode)"
+            self.airportCode = self.airportCodeData ?? ""
+            self.departureLabel.text = "\u{1F6EB} Вылеты из \(self.airportCode)"
+            self.arrivalLabel.text = "\u{1F6EC} Прилеты из \(self.airportCode)"
         }
     }
     var airportNameData : String? {
         didSet {
-            airportNameLabel.text = airportNameData ?? ""
+            self.airportNameLabel.text = self.airportNameData ?? ""
         }
     }
     
     // MARK: - Elements
     
-    private let airportNameLabel: UILabel = {
+    private lazy var airportNameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.textAlignment = .center
@@ -49,7 +49,7 @@ final class AirportInfoView: UIView {
     }()
     
     
-    private let departureLabel: UILabel = {
+    private lazy var departureLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.textAlignment = .left
@@ -57,7 +57,7 @@ final class AirportInfoView: UIView {
         return label
     }()
     
-    private let arrivalLabel: UILabel = {
+    private lazy var arrivalLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.textAlignment = .left
@@ -65,7 +65,7 @@ final class AirportInfoView: UIView {
         return label
     }()
     
-    var departuresTableView: UITableView = {
+    lazy var departuresTableView: UITableView = {
         let tableView = UITableView()
         tableView.register(FlightCell.self, forCellReuseIdentifier: FlightCell.identifier)
         tableView.layer.cornerRadius = 10
@@ -74,7 +74,7 @@ final class AirportInfoView: UIView {
         return tableView
     }()
     
-    var arrivalsTableView: UITableView = {
+    lazy var arrivalsTableView: UITableView = {
         let tableView = UITableView()
         tableView.register(FlightCell.self, forCellReuseIdentifier: FlightCell.identifier)
         tableView.allowsSelection = false
@@ -82,7 +82,7 @@ final class AirportInfoView: UIView {
         return tableView
     }()
     
-    private let saveButton: UIButton = {
+    private lazy var saveButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "star"), for: .normal)
         button.addTarget(nil, action: #selector(AirportInfoViewController.saveButtonTapped), for: .touchUpInside)
@@ -93,7 +93,7 @@ final class AirportInfoView: UIView {
     
     init() {
         super.init(frame: .zero)
-        backgroundColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 0.983)
+        self.backgroundColor = .customBackgroundGray
         self.configureView()
         self.makeConstraints()
     }
@@ -103,12 +103,12 @@ final class AirportInfoView: UIView {
     }
     
     private func configureView() {
-        self.addSubview(airportNameLabel)
-        self.addSubview(departuresTableView)
-        self.addSubview(arrivalsTableView)
-        self.addSubview(departureLabel)
-        self.addSubview(arrivalLabel)
-        self.addSubview(saveButton)
+        self.addSubview(self.airportNameLabel)
+        self.addSubview(self.departuresTableView)
+        self.addSubview(self.arrivalsTableView)
+        self.addSubview(self.departureLabel)
+        self.addSubview(self.arrivalLabel)
+        self.addSubview(self.saveButton)
     }
 }
 
@@ -155,41 +155,52 @@ extension AirportInfoView: IAirportInfoView {
 private extension AirportInfoView {
     private func makeConstraints() {
         self.airportNameLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(16)
-            make.leading.equalToSuperview().offset(16)
-            make.trailing.equalToSuperview().offset(-16)
+            make.top.equalToSuperview().offset(Layout.standartTop)
+            make.leading.equalToSuperview().offset(Layout.standartLeading)
+            make.trailing.equalToSuperview().offset(Layout.standartTrailing)
         }
         
         self.departuresTableView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(16)
-            make.trailing.equalToSuperview().offset(-16)
-            make.top.equalTo(departureLabel.snp.bottom).offset(16)
+            make.leading.equalToSuperview().offset(Layout.standartLeading)
+            make.trailing.equalToSuperview().offset(Layout.standartTrailing)
+            make.top.equalTo(self.departureLabel.snp.bottom).offset(Layout.standartTop)
             make.height.equalTo(UIScreen.main.bounds.height / 3)
         }
         
         self.arrivalLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(16)
-            make.top.equalTo(departuresTableView.snp.bottom).offset(26)
-            make.height.equalTo(14)
+            make.leading.equalToSuperview().offset(Layout.standartLeading)
+            make.top.equalTo(self.departuresTableView.snp.bottom).offset(Layout.arrivalLabelTop)
+            make.height.equalTo(Layout.standartHeight)
         }
         
         self.arrivalsTableView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(16)
-            make.trailing.equalToSuperview().offset(-16)
-            make.top.equalTo(arrivalLabel.snp.bottom).offset(16)
+            make.leading.equalToSuperview().offset(Layout.standartLeading)
+            make.trailing.equalToSuperview().offset(Layout.standartTrailing)
+            make.top.equalTo(self.arrivalLabel.snp.bottom).offset(Layout.standartTop)
             make.height.equalTo(UIScreen.main.bounds.height / 3)
         }
         
         self.departureLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(16)
-            make.top.equalTo(airportNameLabel.snp.bottom).offset(16)
-            make.height.equalTo(14)
+            make.leading.equalToSuperview().offset(Layout.standartLeading)
+            make.top.equalTo(self.airportNameLabel.snp.bottom).offset(Layout.standartTop)
+            make.height.equalTo(Layout.standartHeight)
         }
         
         self.saveButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-16)
-            make.top.equalToSuperview().offset(16)
-            make.height.equalTo(30)
+            make.trailing.equalToSuperview().offset(Layout.standartTrailing)
+            make.top.equalToSuperview().offset(Layout.standartTop)
+            make.height.equalTo(Layout.saveButtonHeight)
         }
+    }
+}
+
+private extension AirportInfoView {
+    enum Layout {
+        static let standartLeading: CGFloat = 16
+        static let standartTrailing: CGFloat = -16
+        static let standartTop: CGFloat = 16
+        static let standartHeight: CGFloat = 14
+        static let arrivalLabelTop: CGFloat = 26
+        static let saveButtonHeight: CGFloat = 30
     }
 }

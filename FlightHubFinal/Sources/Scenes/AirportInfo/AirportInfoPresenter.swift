@@ -34,7 +34,7 @@ final class AirportInfoPresenter: IAirportInfoPresenter {
     }
     
     func fetchCityDetails(for flight: String, completion: @escaping (String?) -> Void) {
-        dataLoader.fetchCityDetails(cityCode: flight) { cityResponse in
+        self.dataLoader.fetchCityDetails(cityCode: flight) { cityResponse in
             if let departureCity = cityResponse?.response.first {
                 completion(departureCity.cityName)
             } else {
@@ -44,7 +44,7 @@ final class AirportInfoPresenter: IAirportInfoPresenter {
     }
     
     func fetchFlightDepartureSchedules() {
-        dataLoader.fetchAirportDepartureSchedules(airportCode: self.ui?.airportCode ?? "") { flightDetails in
+        self.dataLoader.fetchAirportDepartureSchedules(airportCode: self.ui?.airportCode ?? "") { flightDetails in
             if let details = flightDetails {
                 self.ui?.departures = details.response
                 DispatchQueue.main.async {
@@ -57,7 +57,7 @@ final class AirportInfoPresenter: IAirportInfoPresenter {
     }
     
     func fetchFlightArrivalSchedules() {
-        dataLoader.fetchAirportArrivalSchedules(airportCode: ui?.airportCode ?? "") { flightDetails in
+        self.dataLoader.fetchAirportArrivalSchedules(airportCode: ui?.airportCode ?? "") { flightDetails in
             if let details = flightDetails {
                 self.ui?.arrivals = details.response
                 DispatchQueue.main.async {
@@ -70,6 +70,6 @@ final class AirportInfoPresenter: IAirportInfoPresenter {
     }
     
     func saveAirport(airportCode: String, airportName: String) {
-        model.addAirport(airportCodeData: airportCode, airportName: airportName)
+        self.model.addAirport(airportCodeData: airportCode, airportName: airportName)
     }
 }

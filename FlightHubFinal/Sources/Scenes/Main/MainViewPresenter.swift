@@ -36,9 +36,8 @@ final class MainViewPresenter: IMainViewPresenter {
     }
     
     func getAirport() {
-        dataLoader.loadAirportData { airports in
+        self.dataLoader.loadAirportData { airports in
             if let airports = airports {
-                print(airports)
                 self.view?.parseAirportData(airports)
             }
         }
@@ -66,29 +65,28 @@ final class MainViewPresenter: IMainViewPresenter {
     }
     
     func showDetailAirplane(annotation: AircraftAnnotation, allAirports: [Airport]) {
-        router.showAirPlaneInfo(annotation: annotation, allAirports: allAirports)
+        self.router.showAirPlaneInfo(annotation: annotation, allAirports: allAirports)
     }
     
     func showAirportDetail(annotation: AirportAnnotation) {
-        router.showAirportInfo(annotation: annotation)
+        self.router.showAirportInfo(annotation: annotation)
     }
     
     func showFavoritesScreen() {
-        router.showFavoriteView()
+        self.router.showFavoriteView()
     }
     
     func searchTextDidChange(_ searchText: String) {
         if searchText.isEmpty {
-            view?.suggestions.removeAll()
-            ui?.tableView.isHidden = true
+            self.view?.suggestions.removeAll()
+            self.ui?.tableView.isHidden = true
         } else {
-            view?.reloadTable()
-            ui?.tableView.isHidden = false
+            self.view?.reloadTable()
+            self.ui?.tableView.isHidden = false
         }
         
-        netWork.fetchSuggestions(with: searchText) { [weak self] autocompleteResponses in
+        self.netWork.fetchSuggestions(with: searchText) { [weak self] autocompleteResponses in
             self?.view?.suggestions = autocompleteResponses
-            print(autocompleteResponses)
             self?.view?.reloadTable()
             self?.ui?.tableView.isHidden = false
         }

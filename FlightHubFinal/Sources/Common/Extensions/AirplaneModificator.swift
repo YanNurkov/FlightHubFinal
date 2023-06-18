@@ -36,7 +36,7 @@ extension String {
             manufacturer = "ATR"
         case "DH":
             manufacturer = "De Havilland Canada"
-        case "RR":
+        case "SU":
             manufacturer = "Sukhoi Superjet"
         default:
             manufacturer = ""

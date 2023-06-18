@@ -29,7 +29,7 @@ final class MainView: UIView {
         return map
     }()
     
-    var locationManager: CLLocationManager = {
+    lazy var locationManager: CLLocationManager = {
         let location = CLLocationManager()
         location.requestWhenInUseAuthorization()
         return location
@@ -110,12 +110,12 @@ final class MainView: UIView {
     // MARK: - SetupView
     
     private func configureView() {
-        self.addSubview(mapView)
-        mapView.addSubview(label)
-        mapView.addSubview(locationButton)
-        mapView.addSubview(searchButton)
-        mapView.addSubview(favoritesButton)
-        mapView.addSubview(tableView)
+        self.addSubview(self.mapView)
+        self.mapView.addSubview(self.label)
+        self.mapView.addSubview(self.locationButton)
+        self.mapView.addSubview(self.searchButton)
+        self.mapView.addSubview(self.favoritesButton)
+        self.mapView.addSubview(tableView)
     }
 }
 
@@ -143,9 +143,9 @@ extension MainView: IMainScreenView {
 
 private extension MainView {
     private func makeConstraints() {
-        label.snp.makeConstraints { make in
+        self.label.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(70)
+            make.top.equalToSuperview().offset(Layout.labelTop)
             make.height.equalTo(Layout.labelHeight)
             make.width.equalTo(Layout.labelWidth)
         }
@@ -155,27 +155,27 @@ private extension MainView {
         }
         
         self.searchButton.snp.makeConstraints { make in
-            make.top.equalTo(self.snp.top).offset(115)
-            make.height.width.equalTo(40)
-            make.trailing.equalTo(self.snp.trailing).offset(-16)
+            make.top.equalTo(self.snp.top).offset(Layout.searchButtonTop)
+            make.height.width.equalTo(Layout.buttonWidthHeight)
+            make.trailing.equalTo(self.snp.trailing).offset(Layout.buttonTrailing)
         }
         
         self.locationButton.snp.makeConstraints { make in
-            make.top.equalTo(searchButton.snp.bottom).offset(5)
-            make.height.width.equalTo(40)
-            make.trailing.equalTo(self.snp.trailing).offset(-16)
+            make.top.equalTo(searchButton.snp.bottom).offset(Layout.buttonTop)
+            make.height.width.equalTo(Layout.buttonWidthHeight)
+            make.trailing.equalTo(self.snp.trailing).offset(Layout.buttonTrailing)
         }
         
         self.favoritesButton.snp.makeConstraints { make in
-            make.top.equalTo(locationButton.snp.bottom).offset(5)
-            make.height.width.equalTo(40)
-            make.trailing.equalTo(self.snp.trailing).offset(-16)
+            make.top.equalTo(locationButton.snp.bottom).offset(Layout.buttonTop)
+            make.height.width.equalTo(Layout.buttonWidthHeight)
+            make.trailing.equalTo(self.snp.trailing).offset(Layout.buttonTrailing)
         }
         
         self.tableView.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(0)
-            make.top.equalToSuperview().offset(110)
-            make.bottom.equalToSuperview().offset(-500)
+            make.top.equalToSuperview().offset(Layout.tableViewTop)
+            make.bottom.equalToSuperview().offset(Layout.tableViewBottom)
         }
         
     }
@@ -183,8 +183,15 @@ private extension MainView {
 
 private extension MainView {
     enum Layout {
-        static let  labelHeight: CGFloat = 35
-        static let  labelWidth: CGFloat = 200
+        static let labelHeight: CGFloat = 35
+        static let labelWidth: CGFloat = 200
+        static let labelTop: CGFloat = 70
+        static let searchButtonTop: CGFloat = 115
+        static let buttonWidthHeight: CGFloat = 40
+        static let buttonTop: CGFloat = 5
+        static let buttonTrailing: CGFloat = -16
+        static let tableViewTop: CGFloat = 110
+        static let tableViewBottom: CGFloat = -500
     }
 }
 

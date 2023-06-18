@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
         window?.overrideUserInterfaceStyle = .light
-        let apiKey = "0d267fa0-8092-49a1-ac4a-845de4d64905"
+        let apiKey = "5b903ab9-e2ed-4254-bb5d-06ad20befbcf"
         saveAPIKeyToKeychain(apiKey: apiKey)
     }
 }

@@ -8,7 +8,8 @@
 import UIKit
 
 protocol IAirPlaneViewController: AnyObject {
-    
+    func updateAirlineName(string: String)
+    func updateAirlineLogo(with data: Data)
 }
 
 class AirPlaneViewController: UIViewController, IAirPlaneViewController {
@@ -17,13 +18,20 @@ class AirPlaneViewController: UIViewController, IAirPlaneViewController {
     let ui = AirPlaneView()
     var annotation = AircraftAnnotation()
     var allAirports: [Airport] = []
+    var airlineIATA: String? {
+        didSet {
+            let airlineIATAstring = airlineIATA ?? ""
+            presenter?.loadAirlineLogo(iataCode: airlineIATAstring)
+            presenter?.loadAirlineData(iataCode: airlineIATAstring)
+        }
+    }
     
     // MARK: - Lyfecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.presenter?.viewDidLoad(ui: self.ui)
-        congigAirplaneView()
+        self.congigAirplaneView()
     }
     
     override func loadView() {
@@ -43,14 +51,14 @@ class AirPlaneViewController: UIViewController, IAirPlaneViewController {
     }
     
     private func congigAirplaneView() {
-        presenter?.loadData(annotation: annotation.fullFlightNumber, completion: { flightData in
+        self.presenter?.loadData(annotation: annotation.fullFlightNumber, completion: { flightData in
             self.ui.planeModelInfo = self.annotation.aircraftICAO
             self.ui.planeRegNumberInfo = self.annotation.regNumber
             self.ui.speedInfo = String(self.annotation.speed)
             self.ui.altitudeInfo = String(self.annotation.altitude)
             self.ui.directionInfo = self.flightDirection(from: self.annotation.direction)
             self.ui.departureAirportCode = self.annotation.departureIATA
-            self.ui.airlineIATA = self.annotation.airlineIATA
+            self.airlineIATA = self.annotation.airlineIATA
             self.ui.numberOfFlight = self.annotation.fullFlightNumber
             
             self.ui.departureCodeAirportLabel.text = flightData?.response.departureIATA
@@ -75,16 +83,9 @@ class AirPlaneViewController: UIViewController, IAirPlaneViewController {
             if let arrivalCityCode = self.findCityCodeByAirportCode(flightData?.response.arrivalIATA ?? "") {
                 self.presenter?.fetchCityDetails(city: arrivalCityCode) { cityResponse in
                     if let arrivalCity = cityResponse?.response.first {
-                        print("Arrival City Code: \(arrivalCity.cityCode)")
-                        print("Arrival City Name: \(arrivalCity.cityName)")
-                        print("Arrival Country Code: \(arrivalCity.countryCode)")
                         if let departureCityCode = self.findCityCodeByAirportCode(flightData?.response.departureIATA ?? "") {
                             self.presenter?.fetchCityDetails(city: departureCityCode) { cityResponse in
                                 if let departureCity = cityResponse?.response.first {
-                                    print("Departure City Code: \(departureCity.cityCode)")
-                                    print("Departure City Name: \(departureCity.cityName)")
-                                    print("Departure Country Code: \(departureCity.countryCode)")
-                                    
                                     let itineraryText = "\(departureCity.cityName) - \(arrivalCity.cityName)"
                                     self.ui.itineraryLabel.text = itineraryText
                                     self.ui.itineraryLabel.textAlignment = .center
@@ -147,4 +148,13 @@ class AirPlaneViewController: UIViewController, IAirPlaneViewController {
             return ""
         }
     }
+    
+    func updateAirlineName(string: String) {
+        self.ui.airlineNameLabel.text = string
+    }
+    
+    func updateAirlineLogo(with data: Data) {
+            self.ui.airlineLogoImage.image = UIImage(data: data)
+            self.ui.airlineLogoSecondImage.image = UIImage(data: data)
+        }
 }
