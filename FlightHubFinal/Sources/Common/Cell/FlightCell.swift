@@ -13,21 +13,21 @@ class FlightCell: UITableViewCell {
     weak var delegate: AirportInfoPresenter?
     let data = DataLoader()
     
-    private let flightNumberLabel: UILabel = {
+    private lazy var flightNumberLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.font = UIFont.customFont(type: .montserratAlternates, size: 13)
         return label
     }()
     
-    let cityLabel: UILabel = {
+    lazy var cityLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.font = UIFont.customFont(type: .montserratAlternatesBold, size: 13)
         return label
     }()
     
-    let departureLabel: UILabel = {
+    lazy var departureLabel: UILabel = {
         let label = UILabel()
         label.textColor = .darkGray
         label.textAlignment = .left
@@ -37,7 +37,7 @@ class FlightCell: UITableViewCell {
     }()
     
     
-    private let arrivalLabel: UILabel = {
+    private lazy var arrivalLabel: UILabel = {
         let label = UILabel()
         label.textColor = .darkGray
         label.font = UIFont.customFont(type: .montserratAlternatesThin, size: 13)
@@ -54,11 +54,11 @@ class FlightCell: UITableViewCell {
     }
     
     private func setupViews() {
-        contentView.addSubview(flightNumberLabel)
-        contentView.addSubview(departureLabel)
-        contentView.addSubview(arrivalLabel)
-        contentView.addSubview(cityLabel)
-        makeConstraints()
+        self.contentView.addSubview(self.flightNumberLabel)
+        self.contentView.addSubview(self.departureLabel)
+        self.contentView.addSubview(self.arrivalLabel)
+        self.contentView.addSubview(self.cityLabel)
+        self.makeConstraints()
     }
     
     
@@ -71,7 +71,7 @@ class FlightCell: UITableViewCell {
         }
         
         self.cityLabel.snp.makeConstraints { make in
-            make.leading.equalTo(departureLabel.snp.trailing).offset(16)
+            make.leading.equalTo(self.departureLabel.snp.trailing).offset(16)
             make.top.equalToSuperview().offset(16)
             make.height.equalTo(13)
         }
@@ -83,25 +83,24 @@ class FlightCell: UITableViewCell {
         }
         
         self.flightNumberLabel.snp.makeConstraints { make in
-            make.leading.equalTo(departureLabel.snp.trailing).offset(16)
-            make.top.equalTo(cityLabel.snp.bottom).offset(10)
+            make.leading.equalTo(self.departureLabel.snp.trailing).offset(16)
+            make.top.equalTo(self.cityLabel.snp.bottom).offset(10)
             make.height.equalTo(13)
         }
     }
     
     func configureDeparture(with flight: Flight) {
         
-        flightNumberLabel.text = flight.flightIATA
+        self.flightNumberLabel.text = flight.flightIATA
         let formattedTime = formatTimeComparison(depTime: extractTime(from: flight.departureTime ?? "") ?? "", depEstimated: extractTime(from: flight.departureEstimated ?? "") ?? "")
-        departureLabel.attributedText = formattedTime
+        self.departureLabel.attributedText = formattedTime
         
         
-        arrivalLabel.text = "\(flight.arrivalIATA ?? "")"
+        self.arrivalLabel.text = "\(flight.arrivalIATA ?? "")"
         
-        data.fetchCityDetails(cityCode: flight.arrivalIATA ?? "") { cityResponse in
+        self.data.fetchCityDetails(cityCode: flight.arrivalIATA ?? "") { cityResponse in
             if let departureCity = cityResponse?.response.first {
                 self.cityLabel.text = departureCity.cityName
-                
             } else {
                 print("Unable to fetch departure city details")
             }
@@ -110,14 +109,14 @@ class FlightCell: UITableViewCell {
     
     func configureArrival(with flight: Flight) {
         
-        flightNumberLabel.text = flight.flightIATA
+        self.flightNumberLabel.text = flight.flightIATA
         let formattedTime = formatTimeComparison(depTime: extractTime(from: flight.departureTime ?? "") ?? "", depEstimated: extractTime(from: flight.departureEstimated ?? "") ?? "")
-        departureLabel.attributedText = formattedTime
+        self.departureLabel.attributedText = formattedTime
         
         
-        arrivalLabel.text = "\(flight.departureIATA ?? "")"
+        self.arrivalLabel.text = "\(flight.departureIATA ?? "")"
         
-        data.fetchCityDetails(cityCode: flight.departureIATA ?? "") { cityResponse in
+        self.data.fetchCityDetails(cityCode: flight.departureIATA ?? "") { cityResponse in
             if let departureCity = cityResponse?.response.first {
                 self.cityLabel.text = departureCity.cityName
                 

@@ -21,11 +21,11 @@ class AirportInfoViewController: UIViewController, IAirportInfoViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter?.viewDidLoad(ui: self.ui)
-        getCityNameFromLocation()
-        setupTableViewDelegatesAndDataSources()
-        updateAirportInfoFromAnnotation()
-        getShedules()
+        self.presenter?.viewDidLoad(ui: self.ui)
+        self.getCityNameFromLocation()
+        self.setupTableViewDelegatesAndDataSources()
+        self.updateAirportInfoFromAnnotation()
+        self.getShedules()
     }
     
     override func loadView() {
@@ -46,7 +46,7 @@ class AirportInfoViewController: UIViewController, IAirportInfoViewController {
     // MARK: - Acrions
     
     @objc func saveButtonTapped() {
-        presenter?.saveAirport(airportCode: annotation.subtitle ?? "", airportName: annotation.title ?? "")
+        self.presenter?.saveAirport(airportCode: annotation.subtitle ?? "", airportName: annotation.title ?? "")
     }
     
     // MARK: - Functions
@@ -80,7 +80,7 @@ class AirportInfoViewController: UIViewController, IAirportInfoViewController {
 
 private extension AirportInfoViewController {
     private func getCityNameFromLocation() {
-        getCityNameFromLocation(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude) { cityName in
+        self.getCityNameFromLocation(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude) { cityName in
             if let cityName = cityName {
                 self.ui.airportNameData = "\(self.annotation.title ?? ""), \nгород \(cityName)"
             } else {
@@ -97,24 +97,22 @@ private extension AirportInfoViewController {
     }
     
     private func updateAirportInfoFromAnnotation() {
-        ui.airportNameData = annotation.title
-        ui.airportCodeData = annotation.subtitle
+        self.ui.airportNameData = annotation.title
+        self.ui.airportCodeData = annotation.subtitle
     }
     
     private func getShedules() {
-        presenter?.fetchFlightDepartureSchedules()
-        presenter?.fetchFlightArrivalSchedules()
+        self.presenter?.fetchFlightDepartureSchedules()
+        self.presenter?.fetchFlightArrivalSchedules()
     }
 }
 
 extension AirportInfoViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == ui.departuresTableView {
-            print(ui.departures.count)
-            return ui.departures.count
-            
-        } else if tableView == ui.arrivalsTableView {
-            return ui.arrivals.count
+        if tableView == self.ui.departuresTableView {
+            return self.ui.departures.count
+        } else if tableView == self.ui.arrivalsTableView {
+            return self.ui.arrivals.count
         }
         return 0
     }
@@ -123,11 +121,11 @@ extension AirportInfoViewController: UITableViewDataSource, UITableViewDelegate 
         let cell = tableView.dequeueReusableCell(withIdentifier: FlightCell.identifier, for: indexPath) as! FlightCell
         let flight: Flight
         
-        if tableView == ui.departuresTableView {
-            flight = ui.departures[indexPath.row]
+        if tableView == self.ui.departuresTableView {
+            flight = self.ui.departures[indexPath.row]
             cell.configureDeparture(with: flight)
-        } else if tableView == ui.arrivalsTableView {
-            flight = ui.arrivals[indexPath.row]
+        } else if tableView == self.ui.arrivalsTableView {
+            flight = self.ui.arrivals[indexPath.row]
             cell.configureArrival(with: flight)
         } else {
             return UITableViewCell()

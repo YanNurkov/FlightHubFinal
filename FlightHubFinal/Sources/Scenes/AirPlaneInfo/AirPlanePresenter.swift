@@ -11,6 +11,8 @@ protocol IAirPlanePresenter: AnyObject {
     func viewDidLoad(ui: IAirPlaneView)
     func loadData(annotation: String, completion: @escaping (FlightResponse?) -> Void)
     func fetchCityDetails(city: String, completion: @escaping (CityResponse?) -> Void)
+    func loadAirlineData(iataCode: String)
+    func loadAirlineLogo(iataCode: String)
 }
 
 final class AirPlanePresenter: IAirPlanePresenter {
@@ -31,14 +33,35 @@ final class AirPlanePresenter: IAirPlanePresenter {
     }
     
     func loadData(annotation: String, completion: @escaping (FlightResponse?) -> Void) {
-        dataLoader.fetchFlightDetails(flightIATA: annotation) { flightData in
+        self.dataLoader.fetchFlightDetails(flightIATA: annotation) { flightData in
             completion(flightData)
         }
     }
     
     func fetchCityDetails(city: String, completion: @escaping (CityResponse?) -> Void) {
-        dataLoader.fetchCityDetails(cityCode: city) { city in
+        self.dataLoader.fetchCityDetails(cityCode: city) { city in
             completion(city)
         }
     }
+    
+    func loadAirlineData(iataCode: String) {
+            dataLoader.fetchAirlineData(iataCode: iataCode) { [weak self] airlineResponse in
+                guard let airline = airlineResponse?.response.first else {
+                    return
+                }
+                DispatchQueue.main.async {
+                    self?.view?.updateAirlineName(string: "\(airline.name) • \(self?.ui?.numberOfFlight ?? "")")
+            }
+        }
+    }
+    
+    func loadAirlineLogo(iataCode: String) {
+            dataLoader.fetchAirlineLogo(iataCode: iataCode) { [weak self] data in
+                if let data = data {
+                    DispatchQueue.main.async {
+                        self?.view?.updateAirlineLogo(with: data)
+                    }
+                }
+            }
+        }
 }

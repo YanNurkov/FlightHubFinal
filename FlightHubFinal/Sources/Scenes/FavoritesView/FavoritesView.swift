@@ -44,9 +44,9 @@ final class FavoritesView: UIView {
     }
     
     private func configureView() {
-        self.backgroundColor =  UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 0.97)
-        self.addSubview(tableView)
-        self.addSubview(topLabel)
+        self.backgroundColor = .customBackgroundGray
+        self.addSubview(self.tableView)
+        self.addSubview(self.topLabel)
     }
 }
 
@@ -54,18 +54,18 @@ final class FavoritesView: UIView {
 
 private extension FavoritesView {
     private func makeConstraints() {
-        topLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.snp.top).offset(16)
-            make.leading.equalTo(self.snp.leading).offset(16)
-            make.trailing.equalTo(self.snp.trailing).offset(-16)
-            make.height.equalTo(25)
+        self.topLabel.snp.makeConstraints { make in
+            make.top.equalTo(self.snp.top).offset(Layout.standartTop)
+            make.leading.equalTo(self.snp.leading).offset(Layout.standartLeading)
+            make.trailing.equalTo(self.snp.trailing).offset(Layout.standartTrailing)
+            make.height.equalTo(Layout.topLabelHeight)
         }
         
-        tableView.snp.makeConstraints { make in
-            make.top.equalTo(topLabel.snp.bottom).offset(16)
-            make.leading.equalTo(self.snp.leading).offset(16)
-            make.trailing.equalTo(self.snp.trailing).offset(-16)
-            make.bottom.equalTo(self.snp.bottom).offset(-16)
+        self.tableView.snp.makeConstraints { make in
+            make.top.equalTo(self.topLabel.snp.bottom).offset(Layout.standartTop)
+            make.leading.equalTo(self.snp.leading).offset(Layout.standartLeading)
+            make.trailing.equalTo(self.snp.trailing).offset(Layout.standartTrailing)
+            make.bottom.equalTo(self.snp.bottom).offset(Layout.standartBottom)
         }
     }
 }
@@ -87,5 +87,15 @@ extension FavoritesView: IFavoritesView {
         set {
             self.tableView.delegate = newValue
         }
+    }
+}
+
+private extension FavoritesView {
+    enum Layout {
+        static let standartLeading: CGFloat = 16
+        static let standartTrailing: CGFloat = -16
+        static let standartTop: CGFloat = 16
+        static let standartBottom: CGFloat = -16
+        static let topLabelHeight: CGFloat = 25
     }
 }

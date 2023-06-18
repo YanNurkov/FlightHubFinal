@@ -25,16 +25,17 @@ class MainViewController: UIViewController {
     var allAirports: [Airport] = []
     var suggestions: [AutocompleteResponse] = []
     var selectedSuggestion: AutocompleteResponse?
-    let searchBar = UISearchBar()
+    var searchBar = UISearchBar()
+    var timer: Timer?
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.presenter?.viewDidLoad(ui: self.ui)
-        setupDelegates()
-        showLocation()
-        fetchAirportAndAirplaneData()
+        self.setupDelegates()
+        self.showLocation()
+        self.fetchAirportAndAirplaneData()
         self.ui.tableDataSource = self
         self.ui.tableViewDelegate = self
         self.navigationController?.navigationBar.isHidden = true
@@ -48,24 +49,24 @@ class MainViewController: UIViewController {
     
     @objc func searchButtonTapped() {
         if ui.isSearchVisible {
-            hideSearchView()
+            self.hideSearchView()
         } else {
-            showSearchView()
+            self.showSearchView()
         }
     }
     
     @objc func favoritesButtonTapped() {
-        presenter?.showFavoritesScreen()
+        self.presenter?.showFavoritesScreen()
     }
     
     @objc func showUserLocation() {
-        showLocation()
+        self.showLocation()
     }
     
     // MARK: - Fucntions
     
     func reloadTable() {
-        ui.tableView.reloadData()
+        self.ui.tableView.reloadData()
     }
 }
 
@@ -73,11 +74,11 @@ class MainViewController: UIViewController {
 
 private extension MainViewController {
     private func showLocation() {
-        if ui.locationManager.authorizationStatus == .authorizedWhenInUse {
-            ui.mapView.showsUserLocation = true
-            if let userLocation = ui.mapView.userLocation.location {
+        if self.ui.locationManager.authorizationStatus == .authorizedWhenInUse {
+            self.ui.mapView.showsUserLocation = true
+            if let userLocation = self.ui.mapView.userLocation.location {
                 let region = MKCoordinateRegion(center: userLocation.coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
-                ui.mapView.setRegion(region, animated: true)
+                self.ui.mapView.setRegion(region, animated: true)
             }
         }
     }
@@ -85,16 +86,16 @@ private extension MainViewController {
     private func showSearchView() {
         let screenWidth = UIScreen.main.bounds.width
         
-        searchBar.delegate = self
-        searchBar.frame = CGRect(x: view.bounds.width, y: 60, width: screenWidth, height: 50)
-        searchBar.backgroundColor = .white
-        searchBar.layer.cornerRadius = 50
+        self.searchBar.delegate = self
+        self.searchBar.frame = CGRect(x: view.bounds.width, y: 60, width: screenWidth, height: 50)
+        self.searchBar.backgroundColor = .white
+        self.searchBar.layer.cornerRadius = 50
         
-        view.addSubview(searchBar)
+        self.view.addSubview(self.searchBar)
         UIView.animate(withDuration: 0.3) {
             self.searchBar.frame.origin.x = self.view.bounds.width - screenWidth
         }
-        ui.isSearchVisible = true
+        self.ui.isSearchVisible = true
     }
     
     private func setupDelegates () {
@@ -103,8 +104,11 @@ private extension MainViewController {
     }
     
     private func fetchAirportAndAirplaneData() {
-        presenter?.getAirport()
-        presenter?.getAirplane()
+        self.presenter?.getAirport()
+        self.presenter?.getAirplane()
+        timer = Timer.scheduledTimer(withTimeInterval: 20, repeats: true) { [weak self] (_) in
+            self?.presenter?.getAirplane()
+        }
     }
     
     private func hideSearchView() {
@@ -114,7 +118,32 @@ private extension MainViewController {
         }) { _ in
             searchView.removeFromSuperview()
         }
-        ui.isSearchVisible = false
+        self.ui.isSearchVisible = false
+    }
+    
+    private func getCityNameFromLocation(latitude: CLLocationDegrees, longitude: CLLocationDegrees, completion: @escaping (String?) -> Void) {
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+        let geocoder = CLGeocoder()
+        
+        let locale = Locale(identifier: "ru_RU")
+        
+        geocoder.reverseGeocodeLocation(location, preferredLocale: locale) { (placemarks, error) in
+            if let error = error {
+                print("Reverse geocoding error: \(error.localizedDescription)")
+                completion(nil)
+                return
+            }
+            
+            if let placemark = placemarks?.first {
+                if let city = placemark.locality {
+                    completion(city)
+                } else {
+                    completion(nil)
+                }
+            } else {
+                completion(nil)
+            }
+        }
     }
 }
 
@@ -141,14 +170,14 @@ extension MainViewController: IMainView {
             airportAnnotation.title = name
             airportAnnotation.subtitle = code
             
-            ui.mapView.addAnnotation(airportAnnotation)
-            allAirports.append(airport)
+            self.ui.mapView.addAnnotation(airportAnnotation)
+            self.allAirports.append(airport)
         }
     }
     
     func updateAircraftAnnotations(_ aircrafts: [Aircraft]) {
-        ui.mapView.removeAnnotations(aircraftAnnotations)
-        aircraftAnnotations.removeAll()
+        self.ui.mapView.removeAnnotations(self.aircraftAnnotations)
+        self.aircraftAnnotations.removeAll()
         for aircraft in aircrafts {
             let annotation = AircraftAnnotation()
             annotation.coordinate = CLLocationCoordinate2D(latitude: aircraft.latitude, longitude: aircraft.longitude)
@@ -157,7 +186,6 @@ extension MainViewController: IMainView {
             } else {
                 annotation.fullFlightNumber = aircraft.flightIATA ?? "Unknown"
             }
-            
             
             annotation.aircraftICAO = aircraft.aircraftICAO ?? "Unknown"
             annotation.trueTrack = Double(aircraft.direction)
@@ -176,16 +204,16 @@ extension MainViewController: IMainView {
             annotation.departureIATA = aircraft.departureIATA ?? ""
             annotation.airlineIATA = aircraft.airlineIATA ?? ""
             
-            aircraftAnnotations.append(annotation)
+            self.aircraftAnnotations.append(annotation)
         }
-        ui.mapView.addAnnotations(aircraftAnnotations)
+        self.ui.mapView.addAnnotations(self.aircraftAnnotations)
     }
     
 }
 
 extension MainViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        presenter?.searchTextDidChange(searchText)
+        self.presenter?.searchTextDidChange(searchText)
     }
 }
 
@@ -213,7 +241,7 @@ extension MainViewController: MKMapViewDelegate {
         
         if let aircraftAnnotation = annotation as? AircraftAnnotation {
             let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "AircraftAnnotation") ?? MKAnnotationView(annotation: annotation, reuseIdentifier: "AircraftAnnotation")
-            annotationView.image = UIImage(named: "aircraft_icon") // Set your aircraft icon image here
+            annotationView.image = UIImage(named: "aircraft_icon")
             annotationView.canShowCallout = true
             
             let trueTrack = aircraftAnnotation.trueTrack
@@ -232,19 +260,19 @@ extension MainViewController: MKMapViewDelegate {
             flightNumberLabel.font = UIFont.systemFont(ofSize: 12)
             flightNumberLabel.text = aircraftAnnotation.fullFlightNumber
             flightNumberLabel.transform = CGAffineTransform(rotationAngle: CGFloat(-rotationAngle))
-            flightNumberLabel.backgroundColor = UIColor(red: 0.15, green: 0.57, blue: 0.99, alpha: 1.00)
+            flightNumberLabel.backgroundColor = .customLabelBlue
             flightNumberLabel.layer.cornerRadius = 5
             flightNumberLabel.layer.masksToBounds = true
             annotationView.addSubview(flightNumberLabel)
             flightNumberLabel.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
                 flightNumberLabel.centerXAnchor.constraint(equalTo: annotationView.centerXAnchor),
-                flightNumberLabel.topAnchor.constraint(equalTo: annotationView.bottomAnchor, constant: 10)
+                flightNumberLabel.topAnchor.constraint(equalTo: annotationView.bottomAnchor, constant: Layout.topAnchor)
             ])
             return annotationView
             
         } else if annotation is MKPointAnnotation {
-            let iconSize = CGSize(width: 20, height: 20)
+            let iconSize = CGSize(width: Layout.iconSize, height: Layout.iconSize)
             let renderer = UIGraphicsImageRenderer(size: iconSize)
             let airportIconImage = renderer.image { _ in
                 UIImage(named: "airport_icon")?.draw(in: CGRect(origin: .zero, size: iconSize))
@@ -263,35 +291,10 @@ extension MainViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if let annotation = view.annotation as? AircraftAnnotation {
-            presenter?.showDetailAirplane(annotation: annotation, allAirports: allAirports)
+            self.presenter?.showDetailAirplane(annotation: annotation, allAirports: allAirports)
             print(annotation)
         }  else if let annotation = view.annotation as? AirportAnnotation {
-            presenter?.showAirportDetail(annotation: annotation)
-        }
-    }
-    
-    private func getCityNameFromLocation(latitude: CLLocationDegrees, longitude: CLLocationDegrees, completion: @escaping (String?) -> Void) {
-        let location = CLLocation(latitude: latitude, longitude: longitude)
-        let geocoder = CLGeocoder()
-        
-        let locale = Locale(identifier: "ru_RU")
-        
-        geocoder.reverseGeocodeLocation(location, preferredLocale: locale) { (placemarks, error) in
-            if let error = error {
-                print("Reverse geocoding error: \(error.localizedDescription)")
-                completion(nil)
-                return
-            }
-            
-            if let placemark = placemarks?.first {
-                if let city = placemark.locality {
-                    completion(city)
-                } else {
-                    completion(nil)
-                }
-            } else {
-                completion(nil)
-            }
+            self.presenter?.showAirportDetail(annotation: annotation)
         }
     }
     
@@ -318,12 +321,19 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         selectedSuggestion = suggestions[indexPath.row]
         if let suggestion = selectedSuggestion {
             self.searchBar.text = "\(suggestion.name ?? "") \(suggestion.mainAirportName ?? "")"
-            moveMapToCoordinates(suggestion.coordinates)
+            self.moveMapToCoordinates(suggestion.coordinates)
             self.ui.tableView.isHidden = true
             let annotation = AirportAnnotation()
             annotation.subtitle = suggestion.code
             annotation.title = "\(suggestion.mainAirportName ?? "") \nгород \(suggestion.name ?? "")"
-            presenter?.showAirportDetail(annotation: annotation)
+            self.presenter?.showAirportDetail(annotation: annotation)
         }
+    }
+}
+
+private extension MainViewController {
+    enum Layout {
+        static let topAnchor: CGFloat = 10
+        static let iconSize: CGFloat = 20
     }
 }

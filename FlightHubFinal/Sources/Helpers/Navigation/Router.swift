@@ -31,15 +31,15 @@ class Router: RouterProtocol {
     }
     
     func initialViewController() {
-        if let navigationController = navigationController {
-            guard let mainViewController = assemblyBuilder?.makeMainModule(router: self) else { return }
+        if let navigationController = self.navigationController {
+            guard let mainViewController = self.assemblyBuilder?.makeMainModule(router: self) else { return }
             navigationController.viewControllers = [mainViewController]
         }
     }
     
     func showAirPlaneInfo(annotation: AircraftAnnotation, allAirports: [Airport]) {
-        if let navigationController = navigationController {
-            guard let airPlane = assemblyBuilder?.makeAirPlaneInfoModule(router: self, annotation: annotation, allAirports: allAirports) else { return }
+        if let navigationController = self.navigationController {
+            guard let airPlane = self.assemblyBuilder?.makeAirPlaneInfoModule(router: self, annotation: annotation, allAirports: allAirports) else { return }
             let sheet = airPlane.presentationController as? UISheetPresentationController
             sheet?.detents = [.medium(), .large()]
             navigationController.present(airPlane, animated: true)
@@ -47,7 +47,7 @@ class Router: RouterProtocol {
     }
     
     func showAirportInfo(annotation: AirportAnnotation) {
-        if let navigationController = navigationController {
+        if let navigationController = self.navigationController {
             guard let infoViewController = assemblyBuilder?.makeAirportInfoModule(router: self, annotation: annotation) else { return }
             let sheet = infoViewController.presentationController as? UISheetPresentationController
             sheet?.detents = [.medium(), .large()]
@@ -56,7 +56,7 @@ class Router: RouterProtocol {
     }
     
     func showFavoriteView() {
-        if let navigationController = navigationController {
+        if let navigationController = self.navigationController {
             guard let favoriteViewController = assemblyBuilder?.makeFavoriteModule(router: self) else { return }
             let sheet = favoriteViewController.presentationController as? UISheetPresentationController
             sheet?.detents = [.medium(), .large()]
@@ -65,6 +65,6 @@ class Router: RouterProtocol {
     }
     
     func dismiss() {
-        navigationController?.topViewController?.dismiss(animated: true, completion: nil)
+        self.navigationController?.topViewController?.dismiss(animated: true, completion: nil)
     }
 }

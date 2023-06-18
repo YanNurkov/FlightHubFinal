@@ -27,6 +27,8 @@ protocol CityDetailsLoader {
 
 protocol FlightDetailsLoader {
     func fetchFlightDetails(flightIATA: String, completion: @escaping FlightDetailsHandler)
+    func fetchAirlineData(iataCode: String, completion: @escaping (AirlineResponse?) -> Void)
+    func fetchAirlineLogo(iataCode: String, completion: @escaping (Data?) -> Void)
 }
 protocol AirportDepartureLoader {
     func fetchAirportDepartureSchedules(airportCode: String, completion: @escaping (FlightDetails?) -> Void)
@@ -54,7 +56,8 @@ class DataLoader: APIProtocol {
         AF.request(url).responseDecodable(of: [Airport].self) { response in
             switch response.result {
             case .success(let airports):
-                completion(airports)
+                let filteredAirports = airports.filter { $0.iataType == "airport" }
+                completion(filteredAirports)
             case .failure(let error):
                 print("Error fetching airport data: \(error)")
                 completion(nil)
@@ -156,4 +159,59 @@ class DataLoader: APIProtocol {
             }
         }
     }
+    
+    func loadAirlineLogo(withIATA airlineIATA: String?, completion: @escaping (Data?) -> Void) {
+        let airlineIATAstring = airlineIATA ?? ""
+        if let url = URL(string: "http://pics.avs.io/100/100/\(airlineIATAstring).png") {
+            DispatchQueue.global().async {
+                if let data = try? Data(contentsOf: url) {
+                    completion(data)
+                } else {
+                    completion(nil)
+                }
+            }
+        } else {
+            completion(nil)
+        }
+    }
+    
+    func fetchAirlineData(iataCode: String, completion: @escaping (AirlineResponse?) -> Void) {
+        let apiKey = retrieveAPIKeyFromKeychain() ?? ""
+        let urlString = "https://airlabs.co/api/v9/airlines?iata_code=\(iataCode)&api_key=\(apiKey)"
+        
+        if let url = URL(string: urlString) {
+            let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+                if let error = error {
+                    print("Error: \(error)")
+                    completion(nil)
+                } else if let data = data {
+                    do {
+                        let decoder = JSONDecoder()
+                        let airlineResponse = try decoder.decode(AirlineResponse.self, from: data)
+                        completion(airlineResponse)
+                    } catch {
+                        print("Error decoding airline data: \(error)")
+                        completion(nil)
+                    }
+                }
+            }
+            task.resume()
+        }
+    }
+    
+    func fetchAirlineLogo(iataCode: String, completion: @escaping (Data?) -> Void) {
+            let urlString = "http://pics.avs.io/100/100/\(iataCode).png"
+            
+            if let url = URL(string: urlString) {
+                DispatchQueue.global().async {
+                    if let data = try? Data(contentsOf: url) {
+                        completion(data)
+                    } else {
+                        completion(nil)
+                    }
+                }
+            } else {
+                completion(nil)
+            }
+        }
 }

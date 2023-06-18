@@ -8,109 +8,111 @@
 import UIKit
 
 protocol IAirPlaneView: AnyObject {
-    var numberOfFlightData: String? { get set }
+    var numberOfFlight: String { get set }
 }
 
 final class AirPlaneView: UIView, IAirPlaneView {
     var arrivalAirportCode = "airportCodeArrival"
-    var departureAirportCode = "DEP"
+    var departureAirportCode = "airportCodeDeparture"
     var numberOfFlight = ""
     
     var planeModelInfo: String? {
         didSet {
             let modifiedAircraftType = planeModelInfo?.appendManufacturerName()
-            planeModelInfoLabel.text = modifiedAircraftType
+            self.planeModelInfoLabel.text = modifiedAircraftType
         }
     }
     
     var planeRegNumberInfo: String? {
         didSet {
-            planeRegNumberInfoLabel.text = "Рег. номер " + (planeRegNumberInfo ?? "Не известен")
+            self.planeRegNumberInfoLabel.text = "Рег. номер " + (self.planeRegNumberInfo ?? "Не известен")
         }
     }
     
     var speedInfo: String? {
         didSet {
-            speedInfoLabel.text = speedInfo
+            self.speedInfoLabel.text = self.speedInfo
         }
     }
     
     var altitudeInfo: String? {
         didSet {
-            altitudeInfoLabel.text = altitudeInfo
+            self.altitudeInfoLabel.text = self.altitudeInfo
         }
     }
     
     var directionInfo: String? {
         didSet {
-            directionInfoLabel.text = directionInfo
+            self.directionInfoLabel.text = self.directionInfo
         }
     }
     
     var airportCodeArrival : String? {
         didSet {
-            arrivalAirportCode = airportCodeArrival ?? ""
+            self.arrivalAirportCode = self.airportCodeArrival ?? ""
         }
     }
     
     var departureCodeArrival : String? {
         didSet {
-            departureAirportCode = departureCodeArrival ?? ""
+            self.departureAirportCode = self.departureCodeArrival ?? ""
         }
     }
     
     
     var numberOfFlightData: String? {
         didSet {
-            numberOfFlight = numberOfFlightData ?? ""
+            self.numberOfFlight = self.numberOfFlightData ?? ""
         }
     }
     
-    var airlineIATA: String? {
-        didSet {
-            let airlineIATAstring = airlineIATA ?? ""
-            if let url = URL(string: "http://pics.avs.io/100/100/\(airlineIATAstring).png") {
-                print(" !!!!!!!\(url)")
-                DispatchQueue.global().async {
-                    if let data = try? Data(contentsOf: url) {
-                        DispatchQueue.main.async {
-                            self.airlineLogoImage.image = UIImage(data: data)
-                            self.airlineLogoSecondImage.image = UIImage(data: data)
-                        }
-                    }
-                }
-            }
-            let apiKey = retrieveAPIKeyFromKeychain() ?? ""
-            let urlString = "https://airlabs.co/api/v9/airlines?iata_code=\(airlineIATAstring)&api_key=\(apiKey)"
-            if let url = URL(string: urlString) {
-                let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-                    if let error = error {
-                        print("Error: \(error)")
-                    } else if let data = data {
-                        do {
-                            let decoder = JSONDecoder()
-                            let airlineResponse = try decoder.decode(AirlineResponse.self, from: data)
-                            if let airline = airlineResponse.response.first {
-                                DispatchQueue.main.async {
-                                    self.airlineNameLabel.text = ("\(airline.name) • \(self.numberOfFlight)")
-                                }
-                            }
-                        } catch {
-                            print("Error decoding airline data: \(error)")
-                        }
-                    }
-                }
-                task.resume()
-            }
-        }
-    }
+//    var airlineIATA: String? {
+//        didSet {
+//            let airlineIATAstring = airlineIATA ?? ""
+//
+//            if let url = URL(string: "http://pics.avs.io/100/100/\(airlineIATAstring).png") {
+//                print(" !!!!!!!\(url)")
+//                DispatchQueue.global().async {
+//                    if let data = try? Data(contentsOf: url) {
+//                        DispatchQueue.main.async {
+//                            self.airlineLogoImage.image = UIImage(data: data)
+//                            self.airlineLogoSecondImage.image = UIImage(data: data)
+//                        }
+//                    }
+//                }
+//            }
+////            let apiKey = retrieveAPIKeyFromKeychain() ?? ""
+////            let urlString = "https://airlabs.co/api/v9/airlines?iata_code=\(airlineIATAstring)&api_key=\(apiKey)"
+//            presenter?.loadAirlineData(iataCode: airlineIATAstring)
+////            if let url = URL(string: urlString) {
+////                let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+////                    if let error = error {
+////                        print("Error: \(error)")
+////                    } else if let data = data {
+////                        do {
+////                            let decoder = JSONDecoder()
+////                            let airlineResponse = try decoder.decode(AirlineResponse.self, from: data)
+////                            if let airline = airlineResponse.response.first {
+////                                DispatchQueue.main.async {
+////                                    self.airlineNameLabel.text = ("\(airline.name) • \(self.numberOfFlight)")
+////                                }
+////                            }
+////                        } catch {
+////                            print("Error decoding airline data: \(error)")
+////                        }
+////                    }
+////                }
+////                task.resume()
+////            }
+//        }
+//    }
     
     // MARK: - Elements
     
     private lazy var grayView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 5
-        view.backgroundColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 0.97)
+        view.backgroundColor = .customBackgroundGray
         view.alpha = 0.983
         return view
     }()
@@ -125,7 +127,6 @@ final class AirPlaneView: UIView, IAirPlaneView {
         return label
     }()
     
-    
     private lazy var planePhotoImage: UIImageView = {
         let image = UIImageView()
         image.layer.cornerRadius = 20
@@ -133,7 +134,6 @@ final class AirPlaneView: UIView, IAirPlaneView {
         image.image = UIImage(named: "airplane")
         return image
     }()
-    
     
     private lazy var planeRegNumberInfoLabel: UILabel = {
         let label = UILabel()
@@ -210,7 +210,6 @@ final class AirPlaneView: UIView, IAirPlaneView {
         return label
     }()
     
-    
     private lazy var whiteView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -242,14 +241,14 @@ final class AirPlaneView: UIView, IAirPlaneView {
         return image
     }()
     
-    private lazy var airlineLogoImage: UIImageView = {
+     lazy var airlineLogoImage: UIImageView = {
         let image = UIImageView()
         image.layer.cornerRadius = 5
         image.clipsToBounds = true
         return image
     }()
     
-    private lazy var airlineNameLabel: UILabel = {
+     lazy var airlineNameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.textAlignment = .left
@@ -347,7 +346,7 @@ final class AirPlaneView: UIView, IAirPlaneView {
         return view
     }()
     
-    private lazy var airlineLogoSecondImage: UIImageView = {
+     lazy var airlineLogoSecondImage: UIImageView = {
         let image = UIImageView()
         image.layer.cornerRadius = 5
         image.clipsToBounds = true
@@ -414,38 +413,37 @@ final class AirPlaneView: UIView, IAirPlaneView {
     private func configureView() {
         self.backgroundColor = UIColor.clear
         self.isOpaque = false
-        self.addSubview(grayView)
-        grayView.addSubview(planeModelInfoLabel)
-        grayView.addSubview(planePhotoImage)
-        grayView.addSubview(planeRegNumberInfoLabel)
-        grayView.addSubview(speedLabel)
-        grayView.addSubview(altitudeLabel)
-        grayView.addSubview(passLabel)
-        grayView.addSubview(speedInfoLabel)
-        grayView.addSubview(altitudeInfoLabel)
-        grayView.addSubview(directionInfoLabel)
-        grayView.addSubview(speedInfoMileLabel)
-        grayView.addSubview(whiteView)
-        whiteView.addSubview(itineraryLabel)
-        whiteView.addSubview(flagDepartureImage)
-        whiteView.addSubview(flagArrivalImage)
-        whiteView.addSubview(airlineLogoImage)
-        whiteView.addSubview(airlineNameLabel)
-        whiteView.addSubview(arrivalCityLabel)
-        whiteView.addSubview(departureCodeAirportLabel)
-        whiteView.addSubview(arrivalCodeAirportLabel)
-        whiteView.addSubview(timeOfFlightLabel)
-        whiteView.addSubview(departureCityLabel)
-        whiteView.addSubview(arrivalCityLabel)
-        whiteView.addSubview(departureTimeLabel)
-        whiteView.addSubview(arrivalTimeLabel)
-        grayView.addSubview(whiteSecondView)
-        whiteSecondView.addSubview(airlineLogoSecondImage)
-        whiteSecondView.addSubview(manufacturerPlaneLabel)
-        whiteSecondView.addSubview(infoAboutNameLabel)
-        whiteSecondView.addSubview(yearsAircraftLabel)
-        whiteSecondView.addSubview(yearBuildAircraftLabel)
-        
+        self.addSubview(self.grayView)
+        self.grayView.addSubview(self.planeModelInfoLabel)
+        self.grayView.addSubview(self.planePhotoImage)
+        self.grayView.addSubview(self.planeRegNumberInfoLabel)
+        self.grayView.addSubview(self.speedLabel)
+        self.grayView.addSubview(self.altitudeLabel)
+        self.grayView.addSubview(self.passLabel)
+        self.grayView.addSubview(self.speedInfoLabel)
+        self.grayView.addSubview(self.altitudeInfoLabel)
+        self.grayView.addSubview(self.directionInfoLabel)
+        self.grayView.addSubview(self.speedInfoMileLabel)
+        self.grayView.addSubview(self.whiteView)
+        self.whiteView.addSubview(self.itineraryLabel)
+        self.whiteView.addSubview(self.flagDepartureImage)
+        self.whiteView.addSubview(self.flagArrivalImage)
+        self.whiteView.addSubview(self.airlineLogoImage)
+        self.whiteView.addSubview(self.airlineNameLabel)
+        self.whiteView.addSubview(self.arrivalCityLabel)
+        self.whiteView.addSubview(self.departureCodeAirportLabel)
+        self.whiteView.addSubview(self.arrivalCodeAirportLabel)
+        self.whiteView.addSubview(self.timeOfFlightLabel)
+        self.whiteView.addSubview(self.departureCityLabel)
+        self.whiteView.addSubview(self.arrivalCityLabel)
+        self.whiteView.addSubview(self.departureTimeLabel)
+        self.whiteView.addSubview(self.arrivalTimeLabel)
+        self.grayView.addSubview(self.whiteSecondView)
+        self.whiteSecondView.addSubview(self.airlineLogoSecondImage)
+        self.whiteSecondView.addSubview(self.manufacturerPlaneLabel)
+        self.whiteSecondView.addSubview(self.infoAboutNameLabel)
+        self.whiteSecondView.addSubview(self.yearsAircraftLabel)
+        self.whiteSecondView.addSubview(self.yearBuildAircraftLabel)
     }
 }
 
@@ -455,190 +453,222 @@ private extension AirPlaneView {
     private func makeConstraints() {
         self.grayView.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalToSuperview()
-            make.top.equalTo(self.snp.top).offset(15)
+            make.top.equalTo(self.snp.top).offset(Layout.grayViewTop)
         }
         self.planePhotoImage.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(16)
-            make.top.equalToSuperview().offset(-16)
-            make.height.equalTo(100)
-            make.width.equalTo(170)
+            make.leading.equalToSuperview().offset(Layout.standartLeading)
+            make.top.equalToSuperview().offset(Layout.planePhotoImageTop)
+            make.height.equalTo(Layout.planePhotoImageHeight)
+            make.width.equalTo(Layout.planePhotoImageWidth)
         }
         self.planeModelInfoLabel.snp.makeConstraints { make in
-            make.leading.equalTo(self.planePhotoImage.snp.trailing).offset(16)
-            make.centerY.equalTo(planePhotoImage.snp.centerY)
-            make.trailing.equalToSuperview().offset(-16)
-            make.height.equalTo(23)
+            make.leading.equalTo(self.planePhotoImage.snp.trailing).offset(Layout.standartLeading)
+            make.centerY.equalTo(self.planePhotoImage.snp.centerY)
+            make.trailing.equalToSuperview().offset(Layout.standartTrailing)
+            make.height.equalTo(Layout.planeModelInfoLabelHeight)
         }
         
         self.planeRegNumberInfoLabel.snp.makeConstraints { make in
-            make.leading.equalTo(self.planePhotoImage.snp.trailing).offset(16)
-            make.trailing.equalToSuperview().offset(-16)
-            make.height.equalTo(20)
-            make.bottom.equalTo(self.planePhotoImage.snp.bottom).offset(-15)
+            make.leading.equalTo(self.planePhotoImage.snp.trailing).offset(Layout.standartLeading)
+            make.trailing.equalToSuperview().offset(Layout.standartTrailing)
+            make.height.equalTo(Layout.planeRegNumberInfoLabelHeight)
+            make.bottom.equalTo(self.planePhotoImage.snp.bottom).offset(Layout.planeRegNumberInfoLabelBottom)
         }
         
         self.speedLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(16)
-            make.top.equalTo(self.planePhotoImage.snp.bottom).offset(20)
-            make.height.equalTo(20)
+            make.leading.equalToSuperview().offset(Layout.standartLeading)
+            make.top.equalTo(self.planePhotoImage.snp.bottom).offset(Layout.speedAltitudaPass)
+            make.height.equalTo(Layout.speedAltitudaPass)
         }
         
         self.altitudeLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.planePhotoImage.snp.bottom).offset(20)
-            make.height.equalTo(20)
+            make.top.equalTo(self.planePhotoImage.snp.bottom).offset(Layout.speedAltitudaPass)
+            make.height.equalTo(Layout.speedAltitudaPass)
             make.centerX.equalToSuperview()
         }
         
         self.passLabel.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-16)
-            make.top.equalTo(self.planePhotoImage.snp.bottom).offset(20)
-            make.height.equalTo(20)
-            make.width.equalTo(135)
+            make.trailing.equalToSuperview().offset(Layout.standartTrailing)
+            make.top.equalTo(self.planePhotoImage.snp.bottom).offset(Layout.speedAltitudaPass)
+            make.height.equalTo(Layout.speedAltitudaPass)
+            make.width.equalTo(Layout.passLabelWidht)
         }
         
         self.speedInfoLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(16)
-            make.top.equalTo(self.speedLabel.snp.bottom).offset(10)
-            make.height.equalTo(30)
+            make.leading.equalToSuperview().offset(Layout.standartLeading)
+            make.top.equalTo(self.speedLabel.snp.bottom).offset(Layout.topOffset)
+            make.height.equalTo(Layout.speedInfoLabelHeight)
         }
         
         self.speedInfoMileLabel.snp.makeConstraints { make in
-            make.leading.equalTo(self.speedInfoLabel.snp.trailing).offset(5)
-            make.bottom.equalTo(self.speedInfoLabel.snp.bottom)
-            make.height.equalTo(13)
+            make.leading.equalTo(self.speedInfoLabel.snp.trailing).offset(Layout.infoTop)
+            make.bottom.equalTo(self.speedInfoLabel.snp.bottom).offset(Layout.speedInfoMileLabelBottom)
+            make.height.equalTo(Layout.speedInfoMileLabelHeight)
         }
         
         self.altitudeInfoLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.altitudeLabel.snp.bottom).offset(10)
-            make.height.equalTo(30)
+            make.top.equalTo(self.altitudeLabel.snp.bottom).offset(Layout.topOffset)
+            make.height.equalTo(Layout.directionInfoLabelHeight)
             make.centerX.equalToSuperview()
         }
         
         self.directionInfoLabel.snp.makeConstraints { make in
-            make.leading.equalTo(passLabel.snp.leading)
-            make.top.equalTo(self.passLabel.snp.bottom).offset(10)
-            make.height.equalTo(30)
-            make.trailing.equalToSuperview().offset(-16)
+            make.leading.equalTo(self.passLabel.snp.leading)
+            make.top.equalTo(self.passLabel.snp.bottom).offset(Layout.topOffset)
+            make.height.equalTo(Layout.directionInfoLabelHeight)
+            make.trailing.equalToSuperview().offset(Layout.standartTrailing)
         }
         
         self.whiteView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(16)
-            make.trailing.equalToSuperview().offset(-16)
-            make.bottom.equalTo(self.arrivalTimeLabel.snp.bottom).offset(16)
-            make.top.equalTo(directionInfoLabel.snp.bottom).offset(16)
+            make.leading.equalToSuperview().offset(Layout.standartLeading)
+            make.trailing.equalToSuperview().offset(Layout.standartTrailing)
+            make.bottom.equalTo(self.arrivalTimeLabel.snp.bottom).offset(Layout.whiteViewTopBottom)
+            make.top.equalTo(self.directionInfoLabel.snp.bottom).offset(Layout.whiteViewTopBottom)
         }
         
         self.itineraryLabel.snp.makeConstraints { make in
             make.centerX.equalTo(self.whiteView.snp.centerX)
-            make.top.equalTo(whiteView.snp.top).offset(16)
-            make.height.equalTo(22)
+            make.top.equalTo(self.whiteView.snp.top).offset(Layout.standartTop)
+            make.height.equalTo(Layout.flagWidht)
         }
         
         self.flagDepartureImage.snp.makeConstraints { make in
-            make.leading.equalTo(whiteView.snp.leading).offset(16)
-            make.height.width.equalTo(22)
-            make.centerY.equalTo(itineraryLabel.snp.centerY)
+            make.leading.equalTo(self.whiteView.snp.leading).offset(Layout.standartLeading)
+            make.height.width.equalTo(Layout.flagWidht)
+            make.centerY.equalTo(self.itineraryLabel.snp.centerY)
         }
         
         self.flagArrivalImage.snp.makeConstraints { make in
-            make.height.width.equalTo(22)
-            make.centerY.equalTo(itineraryLabel.snp.centerY)
-            make.trailing.equalTo(whiteView.snp.trailing).inset(16)
+            make.height.width.equalTo(Layout.flagWidht)
+            make.centerY.equalTo(self.itineraryLabel.snp.centerY)
+            make.trailing.equalTo(self.whiteView.snp.trailing).inset(Layout.standartLeading)
         }
         
         self.airlineLogoImage.snp.makeConstraints { make in
-            make.leading.equalTo(whiteView.snp.leading).offset(16)
-            make.top.equalTo(flagDepartureImage.snp.bottom).offset(16)
-            make.width.height.equalTo(40)
+            make.leading.equalTo(self.whiteView.snp.leading).offset(Layout.standartLeading)
+            make.top.equalTo(self.flagDepartureImage.snp.bottom).offset(Layout.standartTop)
+            make.width.height.equalTo(Layout.airlineLogoImageWidhtHeight)
         }
         
         self.airlineNameLabel.snp.makeConstraints { make in
-            make.leading.equalTo(airlineLogoImage.snp.trailing).offset(16)
-            make.height.equalTo(14)
-            make.centerY.equalTo(airlineLogoImage.snp.centerY)
+            make.leading.equalTo(self.airlineLogoImage.snp.trailing).offset(Layout.standartLeading)
+            make.height.equalTo(Layout.airlineNameLabelHeight)
+            make.centerY.equalTo(self.airlineLogoImage.snp.centerY)
         }
         
         self.departureCodeAirportLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(16)
-            make.top.equalTo(airlineNameLabel.snp.bottom).offset(16)
-            make.height.equalTo(35)
-            make.width.equalTo(60)
+            make.leading.equalToSuperview().offset(Layout.standartLeading)
+            make.top.equalTo(self.airlineNameLabel.snp.bottom).offset(Layout.standartTop)
+            make.height.equalTo(Layout.departureCodeAirportLabelHeight)
+            make.width.equalTo(Layout.departureCodeAirportLabelWidht)
         }
         
         self.arrivalCodeAirportLabel.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-16)
-            make.top.equalTo(airlineNameLabel.snp.bottom).offset(16)
-            make.height.equalTo(35)
-            make.width.equalTo(60)
+            make.trailing.equalToSuperview().offset(Layout.standartTrailing)
+            make.top.equalTo(self.airlineNameLabel.snp.bottom).offset(Layout.standartTop)
+            make.height.equalTo(Layout.departureCodeAirportLabelHeight)
+            make.width.equalTo(Layout.departureCodeAirportLabelWidht)
         }
         
         self.timeOfFlightLabel.snp.makeConstraints { make in
-            make.height.equalTo(20)
-            make.width.equalTo(40)
-            make.top.equalTo(airlineNameLabel.snp.bottom).offset(16)
-            make.centerX.equalTo(whiteView.snp.centerX)
+            make.height.equalTo(Layout.timeCityHeight)
+            make.width.equalTo(Layout.timeOfFlightLabelWidht)
+            make.top.equalTo(self.airlineNameLabel.snp.bottom).offset(Layout.standartTop)
+            make.centerX.equalTo(self.whiteView.snp.centerX)
         }
         
         self.departureCityLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(16)
-            make.top.equalTo(departureCodeAirportLabel.snp.bottom)
-            make.height.equalTo(20)
+            make.leading.equalToSuperview().offset(Layout.standartLeading)
+            make.top.equalTo(self.departureCodeAirportLabel.snp.bottom)
+            make.height.equalTo(Layout.timeCityHeight)
         }
         
         self.arrivalCityLabel.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-16)
-            make.top.equalTo(departureCodeAirportLabel.snp.bottom)
-            make.height.equalTo(20)
+            make.trailing.equalToSuperview().offset(Layout.standartTrailing)
+            make.top.equalTo(self.departureCodeAirportLabel.snp.bottom)
+            make.height.equalTo(Layout.timeCityHeight)
         }
         
         self.arrivalCityLabel.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-16)
-            make.top.equalTo(departureCodeAirportLabel.snp.bottom)
-            make.height.equalTo(20)
+            make.trailing.equalToSuperview().offset(Layout.standartTrailing)
+            make.top.equalTo(self.departureCodeAirportLabel.snp.bottom)
+            make.height.equalTo(Layout.timeCityHeight)
         }
         
         self.departureTimeLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(16)
-            make.top.equalTo(departureCityLabel.snp.bottom)
-            make.height.equalTo(20)
+            make.leading.equalToSuperview().offset(Layout.standartLeading)
+            make.top.equalTo(self.departureCityLabel.snp.bottom)
+            make.height.equalTo(Layout.timeCityHeight)
         }
         
         self.arrivalTimeLabel.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-16)
-            make.top.equalTo(arrivalCityLabel.snp.bottom)
-            make.height.equalTo(20)
+            make.trailing.equalToSuperview().offset(Layout.standartTrailing)
+            make.top.equalTo(self.arrivalCityLabel.snp.bottom)
+            make.height.equalTo(Layout.timeCityHeight)
         }
         
         self.whiteSecondView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(16)
-            make.trailing.equalToSuperview().offset(-16)
-            make.top.equalTo(whiteView.snp.bottom).offset(16)
+            make.leading.equalToSuperview().offset(Layout.standartLeading)
+            make.trailing.equalToSuperview().offset(Layout.standartTrailing)
+            make.top.equalTo(self.whiteView.snp.bottom).offset(Layout.standartTop)
             make.bottom.equalToSuperview()
         }
         
         self.airlineLogoSecondImage.snp.makeConstraints { make in
-            make.centerX.equalTo(whiteSecondView.snp.centerX)
-            make.width.height.equalTo(100)
+            make.centerX.equalTo(self.whiteSecondView.snp.centerX)
+            make.width.height.equalTo(Layout.airlineLogoSecondImageWidhtHeight)
         }
         
         self.manufacturerPlaneLabel.snp.makeConstraints { make in
-            make.centerX.equalTo(whiteSecondView.snp.centerX)
-            make.top.equalTo(airlineLogoSecondImage.snp.bottom)
+            make.centerX.equalTo(self.whiteSecondView.snp.centerX)
+            make.top.equalTo(self.airlineLogoSecondImage.snp.bottom)
         }
         
         self.infoAboutNameLabel.snp.makeConstraints { make in
-            make.centerX.equalTo(whiteSecondView.snp.centerX)
-            make.top.equalTo(manufacturerPlaneLabel.snp.bottom).offset(5)
+            make.centerX.equalTo(self.whiteSecondView.snp.centerX)
+            make.top.equalTo(self.manufacturerPlaneLabel.snp.bottom).offset(Layout.infoTop)
         }
         
         self.yearsAircraftLabel.snp.makeConstraints { make in
-            make.centerX.equalTo(whiteSecondView.snp.centerX)
-            make.top.equalTo(infoAboutNameLabel.snp.bottom).offset(5)
+            make.centerX.equalTo(self.whiteSecondView.snp.centerX)
+            make.top.equalTo(self.infoAboutNameLabel.snp.bottom).offset(Layout.infoTop)
         }
         
         self.yearBuildAircraftLabel.snp.makeConstraints { make in
-            make.centerX.equalTo(whiteSecondView.snp.centerX)
-            make.top.equalTo(yearsAircraftLabel.snp.bottom).offset(5)
+            make.centerX.equalTo(self.whiteSecondView.snp.centerX)
+            make.top.equalTo(self.yearsAircraftLabel.snp.bottom).offset(Layout.infoTop)
         }
+    }
+}
+
+private extension AirPlaneView {
+    enum Layout {
+        static let standartLeading: CGFloat = 16
+        static let standartTrailing: CGFloat = -16
+        static let standartTop: CGFloat = 16
+        static let grayViewTop: CGFloat = 15
+        static let planePhotoImageTop: CGFloat = -16
+        static let planePhotoImageHeight: CGFloat = 100
+        static let planePhotoImageWidth: CGFloat = 170
+        static let planeModelInfoLabelHeight: CGFloat = 23
+        static let planeRegNumberInfoLabelHeight: CGFloat = 20
+        static let speedAltitudaPass: CGFloat = 20
+        static let passLabelWidht: CGFloat = 135
+        static let planeRegNumberInfoLabelBottom: CGFloat = -15
+        static let infoTop: CGFloat = 5
+        static let timeCityHeight: CGFloat = 20
+        static let topOffset: CGFloat = 10
+        static let speedInfoLabelHeight: CGFloat = 30
+        static let airlineLogoSecondImageWidhtHeight: CGFloat = 100
+        static let departureCodeAirportLabelWidht: CGFloat = 60
+        static let departureCodeAirportLabelHeight: CGFloat = 35
+        static let timeOfFlightLabelWidht: CGFloat = 40
+        static let flagWidht: CGFloat = 22
+        static let airlineNameLabelHeight: CGFloat = 14
+        static let whiteViewTopBottom: CGFloat = 16
+        static let directionInfoLabelHeight: CGFloat = 30
+        static let speedInfoMileLabelHeight: CGFloat = 13
+        static let airlineLogoImageWidhtHeight: CGFloat = 40
+        static let speedInfoMileLabelBottom: CGFloat = -3
     }
 }
